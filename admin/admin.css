@@ -1,0 +1,57 @@
+@font-face{
+	font-family: Santo;
+	src: url(../assets/ttf/santo.ttf);
+}
+
+@font-face{
+	font-family: Aracne;
+	src: url(../assets/ttf/aracne.ttf);
+}
+
+body{
+	background-color: black;
+}
+
+header{
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: -2em;
+	margin-bottom: 0em;
+	padding: 2em;
+	padding-bottom: 0em;
+	text-align: center;
+	font-family: Aracne;
+	color: white;
+}
+
+a, a:visited{
+	text-decoration: none;
+}
+
+ul.table{
+	margin: 0;
+	padding: 0;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid rgba(0,0,0,0.25);
+}
+
+li.row{
+	font-family: Helvetica;
+	list-style-type: none;
+	margin: 0.5em 0em;
+	background-color: rgba(255, 255, 255, 0.15);
+	color: white;
+}
+
+li.row:hover{
+	box-shadow: 0em 0em 0.1em 0.2em rgba(255, 255, 255, 0.25);
+}
+
+*.col{
+	min-width: 10em;
+	padding: 0.25em;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+}

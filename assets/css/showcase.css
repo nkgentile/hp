@@ -1,0 +1,97 @@
+div.showcase{
+	overflow: hidden;
+	width: 100vw;
+	height: 100vh;
+	white-space: nowrap;
+	font-family: Aracne;
+	font-size: 1.25em;
+}
+
+div.nav{
+	width: 100%;
+	text-align: center;
+	cursor: pointer;
+	position: absolute;
+	bottom: -2em;
+}
+
+div.nav div.node{
+	display: inline-block;
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+	background-color: white;
+	margin: 1em;
+	opacity: 0.5;
+}
+
+div.nav div.node.active{
+	opacity: 1;
+}
+
+div.review{
+	cursor: pointer;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	position: relative;
+}
+
+div.review footer.info{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: white;
+	background: linear-gradient(
+		to top,
+		rgba(0,0,0,1) 0%,
+		rgba(0,0,0,0) 100%
+	);
+	background: black;
+}
+
+footer.info div.user{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 1em;
+}
+footer.info div.user img{
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
+	border: 5px solid white;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: -3em;
+	position: relative;
+	z-index: 1;
+}
+footer.info div.user div.info{
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	position: relative;
+	right: -25%;
+	opacity: 0;
+	border-radius: 1em;
+	width: 10em;
+	padding: 1em;
+}
+
+footer.info div.user div.info.active{
+	opacity: 1;
+	right: 0;
+	background-color: cyan;
+}
+
+footer.info div.hotel{
+	text-align: right;
+	margin: 1em;
+	font-size: 0.75em;
+}
