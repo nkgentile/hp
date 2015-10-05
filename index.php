@@ -6,6 +6,7 @@
 		@import "assets/css/page.css";
 		@import "assets/css/header.css";
 		@import "assets/css/showcase.css";
+		@import "assets/css/grid.css";
 	</style>
 	<script src="assets/js/main.js"
 		type="text/javascript"
