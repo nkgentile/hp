@@ -7,11 +7,10 @@
 		@import "assets/css/header.css";
 		@import "assets/css/showcase.css";
 		@import "assets/css/grid.css";
+		@import "assets/css/user.css";
+		@import "assets/css/review.css";
 	</style>
-	<script src="assets/js/main.js"
-		type="text/javascript"
-		defer>
-	</script>
+	<script src="assets/js/hp.js" type="text/javascript"></script>
 </head>
 <body>
 </body>

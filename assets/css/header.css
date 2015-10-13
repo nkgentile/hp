@@ -6,19 +6,16 @@ header.main{
 	);
 	background: transparent;
 	background: black;
-	position: fixed;
 	width: 100%;
-	top: 0;
-	z-index: 99;
+	height: 0.5in;
 	text-align: left;
 }
 
 header.main img#logo{
-	width: 3em;
-	height: 3em;
+	width: 1.5em;
+	height: 100%;
 	display: inline-block;
 	vertical-align: middle;
-	margin: 1em 0;
 	margin-left: 2em;
 }
 
@@ -27,7 +24,7 @@ header.main h1{
 	vertical-align: middle;
 	font-family: Santo;
 	color: white;
-	font-size: 3em;
+	font-size: 2em;
 }
 
 nav.main{

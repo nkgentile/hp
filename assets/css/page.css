@@ -7,11 +7,19 @@ body, p, h1, h2, h3{
 	transition-timing-function: ease-in-out;
 }
 
+*.bg{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 body{
 	width: 100vw;
 	height: 100vh;
 	text-align: center;
 	background-color: black;
+	font-family: Aracne;
+	color: white;
 }
 
 div.page{
@@ -20,4 +28,10 @@ div.page{
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
+}
+
+div#content{
+	width: 100%;
+	height: auto;
+	position: relative;
 }

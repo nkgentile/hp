@@ -1,0 +1,16 @@
+div#review{
+	width: 100%;
+	max-width: 1440px;
+}
+
+div#review div.slideshow{
+	width: 100%;
+	height: 4in;
+	position: relative;
+	overflow: hidden;
+}
+
+div#review div.slideshow div.slide{
+	width: 100%;
+	height: 100%;
+}

@@ -12,10 +12,10 @@ class Database {
   	}
   	
   	function connect(){
-  		$host = "68.178.143.12";
-  		$usr = "hpoet";
+  		$host = "nkgentile.local";
+  		$usr = "root";
   		$pass = "Monkey500@";
-  		$name = $usr;
+  		$name = "hotelpoet";
   	 
   		try {
     		$this->handler = new PDO("mysql:host={$host};dbname={$name};", $usr, $pass);
