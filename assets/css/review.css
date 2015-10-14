@@ -29,9 +29,16 @@ div#review div.user{
 div#review div.user div.portrait{
 	width: 1in;
 	height: 1in;
-	border-radius: 50%;
 	display: inline-block;
 	margin: 1em;
+	border: 5px solid #81A594;
+	border: 5px solid white;
+	border-radius: 100%;
+}
+
+div#review div.user div.portrait.active{
+	border-color: white;
+	box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.25);
 }
 
 div#review div.user div.info{

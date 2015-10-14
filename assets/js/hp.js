@@ -332,8 +332,13 @@ HP = (function(){
 					user = util.html("div", "user");
 					review.appendChild(user);
 
-					portrait = util.html("div", "portrait", "bg");
+					portrait = util.html("div", "portrait", "bg", "anim");
 					util.image.call(portrait, json.portrait);
+					portrait.addEventListener("mouseover", util.active);
+					portrait.addEventListener("mouseout", util.active);
+					portrait.addEventListener("click", function(){
+						page("user", "id="+json.id);
+					});
 					user.appendChild(portrait);
 
 					return user;
@@ -408,7 +413,7 @@ HP = (function(){
 					var add;
 					add = function(json){
 						var review;
-						review = util.html("div", "review", "bg");
+						review = util.html("div", "review", "bg", "anim");
 						util.image.call(review, json.image);
 						review.addEventListener("click", function(){
 							page("review", "id="+json.id);
