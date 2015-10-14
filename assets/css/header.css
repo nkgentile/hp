@@ -1,17 +1,15 @@
-header.main{
-	background: linear-gradient(
-		to bottom,
-		rgba(0,0,0,1) 0%,
-		rgba(0,0,0,0) 100%
-	);
-	background: transparent;
-	background: black;
+header#main{
 	width: 100%;
 	height: 0.5in;
 	text-align: left;
 }
 
-header.main img#logo{
+div#title{
+	display: inline-block;
+	cursor: pointer;
+}
+
+img#logo{
 	width: 1.5em;
 	height: 100%;
 	display: inline-block;
@@ -19,7 +17,7 @@ header.main img#logo{
 	margin-left: 2em;
 }
 
-header.main h1{
+div#title h1{
 	display: inline-block;
 	vertical-align: middle;
 	font-family: Santo;
@@ -27,13 +25,13 @@ header.main h1{
 	font-size: 2em;
 }
 
-nav.main{
+nav#main{
 	display: inline-block;
 	vertical-align: middle;
 	margin-left: 2.5em;
 }
 
-nav.main span{
+nav#main span{
 	color: white;
 	font-family: Aracne;
 	font-size: 1.25em;
@@ -43,6 +41,6 @@ nav.main span{
 	border-bottom: 1px solid transparent;
 }
 
-nav.main span:hover{
+nav#main span:hover{
 	border-bottom-color: white;
 }

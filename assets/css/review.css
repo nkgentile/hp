@@ -14,3 +14,19 @@ div#review div.slideshow div.slide{
 	width: 100%;
 	height: 100%;
 }
+
+div#review header{
+	margin: 1em;
+	padding: 0.5em 0;
+	border-bottom: 5px double white;
+}
+
+div#review div.body{
+	display: inline-block;
+	font-family: Georgia;
+	line-height: 1.5em;
+	font-size: 12pt;
+	font-weight: 400;
+	max-width: 6in;
+	text-align: left;
+}

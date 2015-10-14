@@ -317,6 +317,10 @@ HP = (function(){
 					return header;
 				}());
 
+				body = util.html("div", "body");
+				body.innerHTML = json.review;
+				review.appendChild(body);
+
 				return review;
 			};
 			review = util.ajax("api/review.php", query, render, this);
@@ -324,7 +328,9 @@ HP = (function(){
 		"user": function(query){
 			var user, render;
 			render = function(){
-				var json, user, header, profile, reviews, footer;
+				var json, user,
+				header, profile,
+				reviews, footer;
 				
 				json = HP.model;
 				
@@ -410,18 +416,27 @@ HP = (function(){
 			buffer.appendChild(page);
 		
 			header = (function(){
-				var header, buffer, logo, title, nav;
-				header = util.html("header", "main");
+				var header, logo, title, subtitle, nav;
+
+				header = util.html("header");
+				header.id = "main";
 				page.appendChild(header);
+
+				title = util.html("div");
+				title.id = "title";
+				title.addEventListener("click", function(){
+					HP.page("showcase");
+				});
+				header.appendChild(title);
 
 				logo = new Image();
 				logo.id = "logo";
 				logo.src = "assets/svg/logo.svg";
-				header.appendChild(logo);
+				title.appendChild(logo);
 
-				title = util.html("h1", "title");
-				title.innerHTML = "Hotel Poet";
-				header.appendChild(title);
+				subtitle = util.html("h1");
+				subtitle.innerHTML = "Hotel Poet";
+				title.appendChild(subtitle);
 
 				nav = (function(){
 					var nav, add, links;
@@ -450,7 +465,8 @@ HP = (function(){
 						link.addEventListener("click", el.click);
 						nav.appendChild(link);
 					};
-					nav = util.html("nav", "main");
+					nav = util.html("nav");
+					nav.id = "main";
 					links.forEach(add);
 					header.appendChild(nav);
 					return nav;

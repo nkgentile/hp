@@ -6,7 +6,6 @@
 		@import "assets/css/page.css";
 		@import "assets/css/header.css";
 		@import "assets/css/showcase.css";
-		@import "assets/css/grid.css";
 		@import "assets/css/user.css";
 		@import "assets/css/review.css";
 	</style>
