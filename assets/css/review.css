@@ -1,6 +1,7 @@
 div#review{
 	width: 100%;
 	max-width: 1440px;
+	background-color: #E6E6DC;
 }
 
 div#review div.slideshow{
@@ -16,9 +17,24 @@ div#review div.slideshow div.slide{
 }
 
 div#review header{
-	margin: 1em;
 	padding: 0.5em 0;
-	border-bottom: 5px double white;
+	background-color: #00628B;
+}
+
+div#review div.user{
+	display: block;
+	width: 100%;
+}
+
+div#review div.user div.portrait{
+	width: 1in;
+	height: 1in;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 1em;
+}
+
+div#review div.user div.info{
 }
 
 div#review div.body{
@@ -29,4 +45,5 @@ div#review div.body{
 	font-weight: 400;
 	max-width: 6in;
 	text-align: left;
+	color: black;
 }

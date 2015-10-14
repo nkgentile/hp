@@ -281,7 +281,7 @@ HP = (function(){
 		"review": function(query){
 			var review, render;
 			render = function(){
-				var json, review, header, slideshow, body, footer;
+				var json, review, header, slideshow, user, body, footer;
 				json = HP.model;
 				review = util.html("div");
 				review.id = "review";
@@ -305,17 +305,40 @@ HP = (function(){
 				}());
 
 				header = (function(){
-					var header, title;
+					var header, title, hotel, city;
 
 					header = util.html("header");
 					review.appendChild(header);
 
-					title = util.html("h1", "title");
-					title.innerHTML = json.hotel;
+					title = util.html("div", "title");
 					header.appendChild(title);
+
+					hotel = util.html("h1", "hotel");
+					hotel.innerHTML = json.hotel;
+					title.appendChild(hotel);
+
+					city = util.html("h2", "city");
+					city.innerHTML = json.city;
+					title.appendChild(city);
+
+
 
 					return header;
 				}());
+
+				user = (function(){
+					var user, portrait, name;
+
+					user = util.html("div", "user");
+					review.appendChild(user);
+
+					portrait = util.html("div", "portrait", "bg");
+					util.image.call(portrait, json.portrait);
+					user.appendChild(portrait);
+
+					return user;
+				}());
+
 
 				body = util.html("div", "body");
 				body.innerHTML = json.review;
