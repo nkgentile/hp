@@ -6,7 +6,7 @@ div#user{
 
 header#user{
 	width: 100%;
-	height: 3in;
+	height: 4in;
 	position: relative;
 }
 
@@ -17,19 +17,34 @@ div#profile{
 	margin: 1em;
 }
 
+div#profile h2.username, h2.city{
+	font-family: Helvetica;
+	font-weight: 400;
+	font-size: 12pt;
+}
+
 div#portrait{
 	position: absolute;
-	bottom: -25%;
+	bottom: 0;
 	text-align: center;
 	width: 100%;
+	height: 5px;
+	z-index: 1;
+	background-color: #E6E6DC;
+}
+
+div#portrait.active{
+	background-color: white;
 }
 
 div#portrait img{
 	width: 1.5in;
 	height: 1.5in;
 	border-radius: 50%;
-	border: 5px solid white;
+	border: 5px solid #E6E6DC;
 	display: inline-block;
+	position: relative;
+	top: -1in;
 }
 
 div#user div.review{
@@ -38,7 +53,7 @@ div#user div.review{
 }
 
 div#user div.review:hover{
-	outline: 5px double white;
+	outline: 1px solid white;
 	z-index: 1;
 }
 

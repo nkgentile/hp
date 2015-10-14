@@ -373,13 +373,19 @@ HP = (function(){
 					util.image.call(header, json.background);
 					user.appendChild(header);
 
-					portrait = util.html("div");
+					portrait = util.html("div", "anim");
 					portrait.id = "portrait";
 					portrait.appendChild(
 						(function(){
 							var image;
 							image = new Image;
 							image.src = util.asset("img", json.image);
+							image.addEventListener("mouseover", function(){
+								util.active.call(portrait);
+							});
+							image.addEventListener("mouseout", function(){
+								util.active.call(portrait);
+							});
 							return image;
 						}())
 					);
@@ -398,13 +404,13 @@ HP = (function(){
 					name.innerHTML = json.name;
 					profile.appendChild(name);
 
-					username = util.html("h2", "username");
-					username.innerHTML = json.username;
-					profile.appendChild(username);
-
 					city = util.html("h2", "city");
 					city.innerHTML = json.city;
 					profile.appendChild(city);
+
+					username = util.html("h2", "username");
+					username.innerHTML = json.username;
+					profile.appendChild(username);
 
 					return profile;
 				}());
@@ -413,7 +419,7 @@ HP = (function(){
 					var add;
 					add = function(json){
 						var review;
-						review = util.html("div", "review", "bg", "anim");
+						review = util.html("div", "review", "bg");
 						util.image.call(review, json.image);
 						review.addEventListener("click", function(){
 							page("review", "id="+json.id);
