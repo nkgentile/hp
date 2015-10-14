@@ -82,14 +82,14 @@ footer.info div.user div.info{
 	right: -25%;
 	opacity: 0;
 	border-radius: 1em;
-	width: 10em;
+	min-width: 8em;
 	padding: 1em;
 }
 
 footer.info div.user div.info.active{
 	opacity: 1;
 	right: 0;
-	background-color: cyan;
+	background-color: #00628B;
 }
 
 footer.info div.hotel{
