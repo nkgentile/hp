@@ -278,6 +278,7 @@ HP = (function(){
 			};
 		
 			grid = util.ajax("api/destinations.php", "", render);
+			*/
 		},
 		"experiences": function(){
 		},
