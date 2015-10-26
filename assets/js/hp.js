@@ -237,6 +237,7 @@ HP = (function(){
 			showcase = util.ajax("api/showcase.php", "", render, this);
 		},
 		"destinations": function(){
+			/*
 			var page, grid, header, render;
 		
 			document.body.innerHTML = "";
