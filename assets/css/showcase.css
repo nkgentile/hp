@@ -1,7 +1,7 @@
 div.showcase{
 	overflow: hidden;
 	width: 100%;
-	height: 100%;
+	height: 95%;
 	position: relative;
 	white-space: nowrap;
 	font-family: Aracne;
@@ -35,7 +35,6 @@ div.review{
 	display: inline-block;
 	width: 100%;
 	height: 100%;
-	max-height: 7.5in;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -44,25 +43,20 @@ div.review{
 }
 
 div.review footer.info{
-	width: 100%;
+	display: block;
 	position: absolute;
 	bottom: 0;
-	left: 0;
+	right: 0;
 	color: white;
-	background: linear-gradient(
-		to top,
-		rgba(0,0,0,1) 0%,
-		rgba(0,0,0,0) 100%
-	);
-	background: black;
+	text-align: right;
+	margin: 1em;
 }
 
 footer.info div.user{
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	padding: 1em;
+	display: inline-block;
+	vertical-align: middle;
 }
+
 footer.info div.user img{
 	width: 5em;
 	height: 5em;
@@ -70,9 +64,13 @@ footer.info div.user img{
 	border: 5px solid white;
 	display: inline-block;
 	vertical-align: middle;
-	margin-right: -3em;
+	margin: 0 -3em;
 	position: relative;
 	z-index: 1;
+}
+
+footer.info div.user img:hover{
+	box-shadow: 0px 5px 10px 2px rgba(0,0,0,0.5);
 }
 footer.info div.user div.info{
 	display: inline-block;
@@ -80,20 +78,29 @@ footer.info div.user div.info{
 	text-align: right;
 	position: relative;
 	right: -25%;
+	right: 0;
 	opacity: 0;
+	opacity: 1;
 	border-radius: 1em;
-	min-width: 8em;
+	min-width: 6em;
 	padding: 1em;
+	padding-left: 2em;
+	background-color: #E6E6DC;
+	color: black;
 }
 
 footer.info div.user div.info.active{
 	opacity: 1;
 	right: 0;
-	background-color: #00628B;
 }
 
 footer.info div.hotel{
-	text-align: right;
-	margin: 1em;
+	text-align: left;
 	font-size: 0.75em;
+	background-color: #00628B;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 1em;
+	padding-right: 5em;
+	border-radius: 1em;
 }

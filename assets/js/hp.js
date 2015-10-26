@@ -115,6 +115,23 @@ HP = (function(){
 					info = util.html("footer", "info");
 					review.appendChild(info);
 
+					hotel = (function(){
+						var hotel, name, city, blurb;
+
+						hotel = util.html("div", "hotel");
+						info.appendChild(hotel);
+
+						name = util.html("h1", "name");
+						name.innerHTML = json["hotel"];
+						hotel.appendChild(name);
+
+						city = util.html("h2", "location");
+						city.innerHTML = [
+							json["city"], json["country"]
+						].join(", ");
+						hotel.appendChild(city);
+					}());
+
 					user = (function(){
 						var user, name, portrait;
 			
@@ -122,6 +139,7 @@ HP = (function(){
 						info.appendChild(user);
 			
 						portrait = new Image();
+						portrait.classList.add("anim");
 						portrait.src = "assets/img/" + json["portrait"];
 						user.appendChild(portrait);
 
@@ -153,22 +171,6 @@ HP = (function(){
 						});
 					}());
 
-					hotel = (function(){
-						var hotel, name, city, blurb;
-
-						hotel = util.html("div", "hotel");
-						info.appendChild(hotel);
-
-						name = util.html("h1", "name");
-						name.innerHTML = json["hotel"];
-						hotel.appendChild(name);
-
-						city = util.html("h2", "location");
-						city.innerHTML = [
-							json["city"], json["country"]
-						].join(", ");
-						hotel.appendChild(city);
-					}());
 				};
 	
 				//navigation
@@ -289,7 +291,6 @@ HP = (function(){
 				slideshow = (function(){
 					var slideshow, add;
 					slideshow = util.html("div", "slideshow");
-					review.appendChild(slideshow);
 					add = function(json){
 						var slide;
 						slide = util.html("div", "slide", "bg", "anim");
@@ -308,7 +309,6 @@ HP = (function(){
 					var header, title, hotel, city;
 
 					header = util.html("header");
-					review.appendChild(header);
 
 					title = util.html("div", "title");
 					header.appendChild(title);
@@ -321,8 +321,6 @@ HP = (function(){
 					city.innerHTML = json.city;
 					title.appendChild(city);
 
-
-
 					return header;
 				}());
 
@@ -330,7 +328,6 @@ HP = (function(){
 					var user, portrait, name;
 
 					user = util.html("div", "user");
-					review.appendChild(user);
 
 					portrait = util.html("div", "portrait", "bg", "anim");
 					util.image.call(portrait, json.portrait);
@@ -345,8 +342,20 @@ HP = (function(){
 				}());
 
 
-				body = util.html("div", "body");
-				body.innerHTML = json.review;
+				body = (function(){
+					var body;
+					body = util.html("div", "body");
+					body.appendChild(header);
+					body.appendChild((function(){
+						var text;
+						text = util.html("div", "text");
+						text.innerHTML = json.review;
+						return text;
+					}()));
+					return body;
+				}());
+
+				review.appendChild(slideshow);
 				review.appendChild(body);
 
 				return review;
