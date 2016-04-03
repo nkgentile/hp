@@ -237,16 +237,13 @@ HP = (function(){
 			showcase = util.ajax("api/showcase.php", "", render, this);
 		},
 		"destinations": function(){
-			/*
 			var page, grid, header, render;
 		
 			document.body.innerHTML = "";
 			page = util.html("div", "page", "anim");
 			document.body.appendChild(page);
 		
-			header = page.appendChild(menu());
-		
-			render = function(destinations){
+			render = function(){
 				var grid, add;
 
 				add = function(d){
@@ -272,13 +269,12 @@ HP = (function(){
 				};
 
 				grid = util.html("div", "grid");
-				destinations.forEach(add);
+				console.log(HP.model);
 
 				return grid;
 			};
 		
 			grid = util.ajax("api/destinations.php", "", render);
-			*/
 		},
 		"experiences": function(){
 		},
