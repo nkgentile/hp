@@ -105,11 +105,53 @@ HP = (function(){
 					review.addEventListener("click", function(){
 						page("review", "id="+json.id);
 					});
+					review.addEventListener("mouseenter", function(){
+						this.classList.add("active");
+					});
+					review.addEventListener("mouseleave", function(){
+						this.classList.remove("active");
+					});
 					showcase.appendChild(review);	
 					slides.push(review);
 		
-					info = util.html("footer", "info");
+					info = util.html("footer", "info", "anim");
 					review.appendChild(info);
+
+					user = (function(){
+						var user, name, portrait;
+			
+						user = util.html("div", "user");
+						info.appendChild(user);
+			
+						portrait = new Image();
+						portrait.classList.add("anim");
+						portrait.src = "assets/img/" + json["portrait"];
+						user.appendChild(portrait);
+
+						name = (function(){
+							var u, name;
+
+							u = util.html("div", "info", "anim");
+							user.appendChild(u);
+				
+							name = util.html("h3", "name");
+							name.innerHTML = json["user"];
+							//u.appendChild(name);
+				
+							return u;
+						}());
+
+						portrait.addEventListener("mouseover", function(){
+							util.active.call(name);
+						});
+						portrait.addEventListener("mouseout", function(){
+							util.active.call(name);
+						});
+						user.addEventListener("click", function(e){
+							page("user", "id="+json.id);
+							e.stopPropagation();
+						});
+					}());
 
 					hotel = (function(){
 						var hotel, name, city, blurb;
@@ -128,44 +170,6 @@ HP = (function(){
 						hotel.appendChild(city);
 					}());
 
-					user = (function(){
-						var user, name, portrait;
-			
-						user = util.html("div", "user");
-						info.appendChild(user);
-			
-						portrait = new Image();
-						portrait.classList.add("anim");
-						portrait.src = "assets/img/" + json["portrait"];
-						user.appendChild(portrait);
-
-						name = (function(){
-							var u, name, city;
-
-							u = util.html("div", "info", "anim");
-							user.appendChild(u);
-				
-							name = util.html("h3", "name");
-							name.innerHTML = json["user"];
-							u.appendChild(name);
-				
-							city = util.html("p", "city");
-							city.innerHTML = json["city"];
-							u.appendChild(city);
-							return u;
-						}());
-
-						portrait.addEventListener("mouseover", function(){
-							util.active.call(name);
-						});
-						portrait.addEventListener("mouseout", function(){
-							util.active.call(name);
-						});
-						user.addEventListener("click", function(e){
-							page("user", "id="+json.id);
-							e.stopPropagation();
-						});
-					}());
 
 				};
 	

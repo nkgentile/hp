@@ -12,7 +12,7 @@ class Database {
   	}
   	
   	function connect(){
-  		$host = "nkgentile.local";
+  		$host = "localhost:3306";
   		$usr = "root";
   		$pass = "Monkey500@";
   		$name = "hotelpoet";
