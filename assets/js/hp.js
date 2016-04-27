@@ -32,18 +32,14 @@ HP = (function(){
 			image = new Image();
 			image.src = util.asset("img", filename);
 			image.addEventListener("load", function(){
+				target.classList.remove("loading");
 				target.style.backgroundImage = [
 					"url(",
 					image.src,
 					")"
 				].join("");
 			});
-			target.style.backgroundImage = [
-				"url(",
-				"assets/img/",
-				"loading.gif",
-				")"
-			].join("");
+			target.classList.add("loading");
 		},
 		"ajax": function(file, param, render, context){
 			var buffer, xhr, query, nocache;
@@ -226,7 +222,7 @@ HP = (function(){
 
 				//Animate slideshow
 				animate = (function(){
-					timer = setInterval(next, 3000);
+				//	timer = setInterval(next, 3000);
 				}());
 
 				stop = function(){
