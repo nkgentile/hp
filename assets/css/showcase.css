@@ -53,6 +53,8 @@ div.review{
 	flex-flow: row wrap;
 	align-items: flex-end;
 	justify-content: center;
+
+	opacity: 0;
 }
 
 div.review footer.info{

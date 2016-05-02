@@ -27,19 +27,34 @@ HP = (function(){
 			return html;
 		},
 		"image": function(filename){
-			var target, image;
+			var target, image, fadein;
+			
+			fadein = function(){
+				var opacity, rate, fadein;
+
+				opacity = 0;
+				rate = 1;
+
+				fadein = function(){
+					opacity+=rate;
+					if(opacity < 100.0)
+						target.style.opacity = opacity;
+						return requestAnimationFrame(fadein);
+				}
+				return requestAnimationFrame(fadein);
+			};
+
 			target = this;
 			image = new Image();
 			image.src = util.asset("img", filename);
 			image.addEventListener("load", function(){
-				target.classList.remove("loading");
 				target.style.backgroundImage = [
 					"url(",
 					image.src,
 					")"
 				].join("");
+				fadein();
 			});
-			target.classList.add("loading");
 		},
 		"ajax": function(file, param, render, context){
 			var buffer, xhr, query, nocache;
