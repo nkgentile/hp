@@ -12,4 +12,5 @@ $db = new Database();
 $sql = "CALL review({$id})";
 $db->query($sql);
 $review = $db->get();
+$review->review = html_entity_decode($review->review, ENT_HTML5 | ENT_QUOTES, "UTF-8");
 echo json_encode($review);

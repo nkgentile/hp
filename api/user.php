@@ -18,6 +18,7 @@ foreach($reviews as $key => $pair){
 	$review = [];
 	$review["id"] = $pair[0];
 	$review["image"] = $pair[1];
+	$review["hotel"] = $pair[2];
 	$reviews[$key] = $review;
 }
 $user->reviews = $reviews;

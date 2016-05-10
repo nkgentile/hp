@@ -2,7 +2,7 @@
 var HP;
 
 HP = (function(){
-	var util, model, pages, page;
+	var util, model, pages, page, router;
 	
 	util = {
 		"asset": function(type, name){
@@ -351,6 +351,11 @@ HP = (function(){
 					});
 					user.appendChild(portrait);
 
+					name = util.html("h3", "name");
+					name.textContent = json.user;
+					user.appendChild(name);
+					console.log(json);
+
 					return user;
 				}());
 
@@ -359,6 +364,7 @@ HP = (function(){
 					var body;
 					body = util.html("div", "body");
 					body.appendChild(header);
+					body.appendChild(user);
 					body.appendChild((function(){
 						var text;
 						text = util.html("div", "text");
@@ -440,13 +446,20 @@ HP = (function(){
 				reviews = (function(){
 					var add;
 					add = function(json){
-						var review;
+						var review, caption, hotel, city;
 						review = util.html("div", "review", "bg");
 						util.image.call(review, json.image);
 						review.addEventListener("click", function(){
 							page("review", "id="+json.id);
 						});
+						
+						caption = util.html("div", "caption", "anim");
+
+						hotel = util.html("h1", "hotel");
+						hotel.textContent = json.name;
+						review.appendChild(caption);
 						user.appendChild(review);
+						console.log(json);
 					};
 					json.reviews.forEach(add);
 				}());
@@ -461,7 +474,7 @@ HP = (function(){
 		var buffer, render,
 		
 		buffer = new DocumentFragment();
-		
+
 		render = function(){
 			var page,
 			header, footer,
@@ -540,7 +553,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("showcase");
+			HP.page("user", "id=1");
 		});
 			
 		return function(page, query){
