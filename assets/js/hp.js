@@ -251,48 +251,6 @@ HP = (function(){
 			};
 			showcase = util.ajax("api/showcase.php", "", render, this);
 		},
-		"destinations": function(){
-			var page, grid, header, render;
-		
-			document.body.innerHTML = "";
-			page = util.html("div", "page", "anim");
-			document.body.appendChild(page);
-		
-			render = function(){
-				var grid, add;
-
-				add = function(d){
-					var destination, title;
-					destination = util.html("div", "destination", "cell", "circle", "anim");
-					destination.style.backgroundImage = [
-						"url(",
-						"assets/svg/",
-						d["badge"],
-						")"
-					].join("");
-					grid.appendChild(destination);
-				
-					title = util.html("h1", "name", "anim");
-					title.innerHTML = d.name;
-					destination.addEventListener("mouseover", function(){
-						title.classList.toggle("active");
-					});
-					destination.addEventListener("mouseout", function(){
-						title.classList.toggle("active");
-					});
-					destination.appendChild(title);
-				};
-
-				grid = util.html("div", "grid");
-				console.log(HP.model);
-
-				return grid;
-			};
-		
-			grid = util.ajax("api/destinations.php", "", render);
-		},
-		"experiences": function(){
-		},
 		"review": function(query){
 			var review, render;
 			render = function(){
@@ -467,6 +425,62 @@ HP = (function(){
 				return user;
 			};
 			user = util.ajax("api/user.php", query, render, this);
+		},
+		"explore": function(){
+			var explore, render;
+			render = function(){
+				var explore, marquee, cards;
+				explore = util.html("div");
+				explore.id = "explore";
+
+				marquee = util.html("div", "marquee", "anim", "bg");
+				explore.appendChild(marquee);
+
+				cards = HP.model;
+
+				cards.forEach(function(c, i){
+					var card, badge, title;
+					card = util.html("div", "card", "anim", "bg");
+					util.image.call(card, c.image);
+					explore.appendChild(card);
+
+					badge = util.html("div", "badge", "anim", "bg");
+					util.image.call(badge, c.badge);
+					card.appendChild(badge);
+
+					title = util.html("h3", "title", "anim");
+					title.textContent = c.name;
+					card.appendChild(title);
+
+					var basis = 300;
+					switch(i % 4){
+						case 0:
+							card.style.flexBasis = [basis, "px"].join("");
+							break;
+						case 1:
+							card.style.flexBasis = [basis*1.3, "px"].join("");
+							break;
+						case 2:
+							card.style.flexBasis = [basis*1.5, "px"].join("");
+							break;
+
+						case 3:
+							card.style.flexBasis = [basis*1.75, "px"].join("");
+							break;
+						default: break;
+					}
+
+					card.addEventListener("mouseenter", function(e){
+						card.classList.add("active");
+					});
+					card.addEventListener("mouseleave", function(e){
+						card.classList.remove("active");
+					});
+				});
+
+				return explore;
+			};
+			explore = util.ajax("api/explore.php", "", render, this);
 		}
 	};
 	
@@ -511,12 +525,8 @@ HP = (function(){
 					var nav, add, links;
 					links = [
 						{
-							"name": "destinations",
-							"click": pages.destinations
-						},
-						{
-							"name": "experiences",
-							"click": pages.experiences
+							"name": "explore",
+							"click": pages.explore
 						},
 						{
 							"name": "how it works",
@@ -553,7 +563,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("user", "id=1");
+			HP.page("explore", "");
 		});
 			
 		return function(page, query){

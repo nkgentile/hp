@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="720px" height="720px" viewBox="0 0 720 720" style="enable-background:new 0 0 720 720;" xml:space="preserve">
+<g id="Computer">
+	<rect x="225" y="509" width="268" height="45"/>
+	<g id="Screen">
+		<defs>
+			<path id="Clip" d="M646,174.333c0-7.714-0.107-7.333-7.353-7.333H93.142C85.897,167,74,166.619,74,174.333v329.404
+				C74,511.449,85.897,524,93.142,524h545.506c7.245,0,7.353-12.551,7.353-20.263V174.333z"/>
+		</defs>
+		<clipPath id="Clip_1_">
+			<use xlink:href="#Clip"  style="overflow:visible;"/>
+		</clipPath>
+		<rect id="Screen_Background" x="48" y="138" style="clip-path:url(#Clip_1_);fill:#FFFFFF;" width="624" height="415"/>
+		<g style="clip-path:url(#Clip_1_);">
+			<g id="Progress_Bar">
+				<defs>
+					<path id="SVGID_1_" d="M624.5,284.969c0,1.514-2.162,3.531-4.988,3.531H101.748c-2.827,0-5.248-2.017-5.248-3.531v-20.106
+						c0-1.514,2.421-2.363,5.248-2.363h517.764c2.826,0,4.988,0.849,4.988,2.363V284.969z"/>
+				</defs>
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;fill:#FFFFFF;"/>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+				</clipPath>
+				<g style="clip-path:url(#SVGID_2_);">
+					
+						<line style="fill:none;stroke:#B3B3B3;stroke-width:20;stroke-linecap:round;stroke-miterlimit:10;" x1="94" y1="275" x2="298" y2="275"/>
+					<g>
+						<line style="fill:none;stroke:#F2F2F2;stroke-width:20;stroke-miterlimit:10;" x1="94" y1="275" x2="130" y2="275"/>
+						
+							<line style="fill:none;stroke:#F2F2F2;stroke-width:20;stroke-miterlimit:10;stroke-dasharray:44,44;" x1="174" y1="275" x2="241" y2="275"/>
+						<line style="fill:none;stroke:#F2F2F2;stroke-width:20;stroke-miterlimit:10;" x1="263" y1="275" x2="298" y2="275"/>
+					</g>
+				</g>
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;fill:none;stroke:#000000;stroke-miterlimit:10;"/>
+			</g>
+			<text transform="matrix(1 0 0 1 292.1313 316.7852)" style="font-family:'Helvetica-Oblique'; font-size:25.5897;">Uploading...</text>
+		</g>
+	</g>
+	<g id="Screen_Border">
+		<path d="M638.647,167c7.245,0,6.353-0.381,6.353,7.333v329.404c0,7.712,0.893,20.263-6.353,20.263H93.142
+			C85.897,524,74,511.449,74,503.737V174.333C74,166.619,85.897,167,93.142,167H639 M638.647,159H93.142
+			c-4.662,0-9.836-0.15-14.334,1.04C67.471,163.04,66,170.959,66,174.333v329.404c0,8.062,6.355,15.616,8.981,18.454
+			C77.686,525.117,85.093,532,93.142,532h545.506c3.569,0,6.758-1.391,9.222-3.869c5.483-5.516,5.305-15.024,5.26-22.633
+			c-0.002-0.594-0.129-1.209-0.129-1.761V174.333c0-0.61,0.127-1.171,0.131-1.688c0.029-4.005,0.119-7.539-3.008-10.689
+			C646.94,158.75,642.944,159,638.647,159L638.647,159z"/>
+	</g>
+</g>
+<polygon points="561.336,562 114.663,562 69.996,651 606.004,651 "/>
+<path d="M690.732,646.557c0,7.559-6.172,13.443-14.55,13.443h-36.66c-8.378,0-15.791-5.885-15.791-13.443l-38.464-71.132
+	c0-7.559,7.413-13.425,15.791-13.425h36.66c8.378,0,14.55,5.866,14.55,13.425L690.732,646.557z"/>
+</svg>
