@@ -7,7 +7,42 @@ div#explore{
 
 div#explore div.marquee{
 	flex: 0 0 100%;
-	height: 300px;
+	height: 600px;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	background-image: url("../img/marquee.jpg");
+
+	border-bottom: 10pt solid black;
+}
+
+div#explore h1#prompt{
+	flex: 0 0 100%;
+	font-family: Santo;
+	font-size: 80pt;
+	display: block;
+	margin: 20pt;
+	color: white;
+	text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+}
+
+div#explore input.search{
+	flex: 0 0 800px;
+	height: 100px;
+	font-family: Helvetica;
+	font-size: 28pt;
+	text-align: center;
+	box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.25);
+	border: none;
+	outline: none;
+}
+
+div#explore input.search:focus{
+	box-shadow: 0px 5px 0px 0px #15AFEA;
 }
 
 div#explore div.card{
@@ -27,10 +62,14 @@ div#explore div.card{
 div#explore div.badge{
 	flex: 0 0 100px;
 	height: 100px;
+	background-color: black;
 	background-size: auto 50%;
 	background-position: center;
 	border-radius: 100%;
-	box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+div#explore div.card.active div.badge{
+//	box-shadow: 0px 0px 1px 1000px rgba(0, 0, 0, 0.25);
 }
 
 div#explore h3.title{

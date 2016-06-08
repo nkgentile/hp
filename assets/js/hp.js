@@ -37,14 +37,17 @@ HP = (function(){
 
 				fadein = function(){
 					opacity+=rate;
-					if(opacity < 100.0)
-						target.style.opacity = opacity;
+					if(opacity <= 100){
+						target.style.opacity = opacity * 0.01;
 						return requestAnimationFrame(fadein);
+					}
+					return target.style.opacity = null;
 				}
 				return requestAnimationFrame(fadein);
 			};
 
 			target = this;
+
 			image = new Image();
 			image.src = util.asset("img", filename);
 			image.addEventListener("load", function(){
@@ -53,7 +56,7 @@ HP = (function(){
 					image.src,
 					")"
 				].join("");
-				fadein();
+				//fadein();
 			});
 		},
 		"ajax": function(file, param, render, context){
@@ -429,12 +432,21 @@ HP = (function(){
 		"explore": function(){
 			var explore, render;
 			render = function(){
-				var explore, marquee, cards;
+				var explore, marquee, prompt, search, cards;
 				explore = util.html("div");
 				explore.id = "explore";
 
 				marquee = util.html("div", "marquee", "anim", "bg");
 				explore.appendChild(marquee);
+
+				prompt = util.html("h1");
+				prompt.id = "prompt";
+				prompt.textContent = "Where would you like to go?";
+				marquee.appendChild(prompt);
+
+				search = util.html("input", "search", "anim", "bg");
+				search.type = "text";
+				marquee.appendChild(search);
 
 				cards = HP.model;
 
