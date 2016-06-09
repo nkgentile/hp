@@ -95,7 +95,7 @@ HP = (function(){
 					console.error(this.responseText);
 					
 				HP.model = JSON.parse(this.responseText);
-				context.appendChild(render());
+				console.log(context.appendChild(render()));
 			});
 			xhr.send();
 			return xhr;
@@ -538,22 +538,21 @@ HP = (function(){
 					links = [
 						{
 							"name": "explore",
-							"click": pages.explore
 						},
 						{
 							"name": "how it works",
-							"click": pages.how
 						},
 						{
 							"name": "about",
-							"click": pages.about
 						}
 					];
 					add = function(el){
 						var link;
 						link = util.html("span", "anim");
 						link.innerHTML = el.name;
-						link.addEventListener("click", el.click);
+						link.addEventListener("click", function(){
+							HP.page(el.name, "");
+						});
 						nav.appendChild(link);
 					};
 					nav = util.html("nav");
@@ -575,7 +574,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("explore", "");
+			HP.page("showcase", "");
 		});
 			
 		return function(page, query){
