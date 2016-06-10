@@ -8,14 +8,7 @@ if(!$query){
 }
 require_once("../include/database.php");
 $db = new Database();
-$sql =	"SELECT name, reviewer, city, country, destination, img ".
-	"FROM reviews ".
-	"WHERE ".
-	"LOWER(name) LIKE LOWER(\"%{$query}%\") OR ".
-	"LOWER(reviewer) LIKE LOWER(\"%{$query}%\") OR ".
-	"city LIKE \"%{$query}%\" OR ".
-	"destination LIKE \"%{$query}%\" ".
-	"LIMIT 10";
+$sql = "CALL search(\"{$query}\")";
 $db->query($sql);
 
 $response = [];

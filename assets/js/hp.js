@@ -62,18 +62,7 @@ HP = (function(){
 		"ajax": function(file, param, render, context){
 			var buffer, xhr, query, nocache;
 			
-			nocache = function(){
-				return [
-					"nocache",
-					new Date().getTime()
-				].join("=");
-			};
-			
 			query = function(){
-			/*	return [
-					nocache(),
-					param || ""
-				].join("&");*/
 				return param || "";
 			};
 			buffer = new DocumentFragment();
@@ -464,24 +453,6 @@ HP = (function(){
 					title.textContent = c.name;
 					card.appendChild(title);
 
-					var basis = 300;
-					switch(i % 4){
-						case 0:
-							card.style.flexBasis = [basis, "px"].join("");
-							break;
-						case 1:
-							card.style.flexBasis = [basis*1.3, "px"].join("");
-							break;
-						case 2:
-							card.style.flexBasis = [basis*1.5, "px"].join("");
-							break;
-
-						case 3:
-							card.style.flexBasis = [basis*1.75, "px"].join("");
-							break;
-						default: break;
-					}
-
 					card.addEventListener("mouseenter", function(e){
 						card.classList.add("active");
 					});
@@ -584,6 +555,10 @@ HP = (function(){
 			pages[page].call(content, query);
 		};
 	}());
+	
+	router = Object.create(
+	
+	);
 	
 	return {
 		"pages": pages,

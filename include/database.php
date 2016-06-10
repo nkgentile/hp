@@ -1,4 +1,17 @@
 <?php  
+
+function db(){
+	$host = "localhost:3306";
+	$usr = "root";
+	$pass = "Monkey500@";
+	$name = "hotelpoet";
+	
+	$db = new PDO("mysql:host={$host};dbname={$name};charset=utf8mb4", $usr, $pass);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+	return $db;
+}
+
 class Database {
   	public $handler;
   	public $result;
@@ -12,7 +25,7 @@ class Database {
   	}
   	
   	function connect(){
-  		$host = "nkgentile.local";
+  		$host = "localhost:3306";
   		$usr = "root";
   		$pass = "Monkey500@";
   		$name = "hotelpoet";
