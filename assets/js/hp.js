@@ -555,11 +555,12 @@ HP = (function(){
 			pages[page].call(content, query);
 		};
 	}());
-	
-	router = Object.create(
-	
-	);
-	
+
+	router = {
+		pages: [],
+		register: function(){
+		},
+	};
 	return {
 		"pages": pages,
 		"page": page,

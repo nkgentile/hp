@@ -1,7 +1,7 @@
 <?php  
 
 function db(){
-	$host = "localhost:3306";
+	$host = "nkgentile.local";
 	$usr = "root";
 	$pass = "Monkey500@";
 	$name = "hotelpoet";
@@ -25,7 +25,7 @@ class Database {
   	}
   	
   	function connect(){
-  		$host = "localhost:3306";
+  		$host = "nkgentile.local";
   		$usr = "root";
   		$pass = "Monkey500@";
   		$name = "hotelpoet";
