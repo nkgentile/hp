@@ -118,13 +118,12 @@ HP = (function(){
 					info = (function(){
 						var info, hotel, location;
 						info = util.html("div", "info", "anim", "bg");
-						info.style.backgroundColor = ["rgba(", h.color, ",1)"].join("");
 
-						hotel = util.html("h2", "hotel");
+						hotel = util.html("h2", "hotel", "anim");
 						hotel.textContent = h.name;
 						info.appendChild(hotel);
 
-						location = util.html("h3", "location");
+						location = util.html("h3", "location", "anim");
 						location.textContent = [h.city, h.country].join(", ");
 						info.appendChild(location);
 
@@ -362,7 +361,7 @@ HP = (function(){
 		"hotel": function(query){
 			var hotel, render;
 			render = function(){
-				var hotel, marquee, titleblock, experiences, reviews;
+				var hotel, marquee, titleblock, reviews;
 
 				console.log(HP.model);
 
@@ -374,37 +373,88 @@ HP = (function(){
 				hotel.appendChild(marquee);
 
 				titleblock = (function(){
-					var titleblock, name, address;
+					var titleblock, name, city, country, address, phone, experiences;
 					titleblock = util.html("div", "titleblock");
 
 					name = util.html("h1", "name");
 					name.textContent = HP.model.name;
+
+					address = util.html("h1", "address");
+					address.innerHTML = HP.model.address;
+
+					city = util.html("h2", "city");
+					city.textContent = [HP.model.city, HP.model.country].join(", ");
+
+					experiences = (function(){
+						var experiences;
+						experiences = util.html("div", "experiences");
+						HP.model.experiences.forEach(function(e, i){
+							var experience;
+							experience = util.html("div", "experience", "anim", "bg");
+							util.image.call(experience, e.badge);
+							experience.addEventListener("click", function(){
+								HP.page("tag", ["type=experience&id=", e.id].join(""));
+							});
+							experiences.appendChild(experience);
+						});
+						return experiences;
+					}());
+
 					titleblock.appendChild(name);
-
-					address = util.html("h2", "address");
-					address.textContent = HP.model.address;
+					titleblock.appendChild(city);
+					titleblock.appendChild(experiences);
 					titleblock.appendChild(address);
-
 
 					return titleblock;
 				}());
 				hotel.appendChild(titleblock);
 
-				experiences = (function(){
-					var experiences;
-					experiences = util.html("div", "experiences");
-					HP.model.experiences.forEach(function(e, i){
-						var experience;
-						experience = util.html("div", "experience", "anim", "bg");
-						util.image.call(experience, e.badge);
-						experience.addEventListener("click", function(){
-							HP.page("tag", ["type=experience&id=", e.id].join(""));
-						});
-						experiences.appendChild(experience);
+				reviews = util.html("div", "reviews");
+				HP.model.reviews.forEach(function(r, i){
+					console.log(r);
+					var review, user, blurb;
+					review = util.html("div", "review", "anim");
+					review.addEventListener("click", function(){
+						HP.page("review", "id="+r.id);
 					});
-					return experiences;
-				}());
-				hotel.appendChild(experiences);
+
+					user = (function(){
+						var user, portrait, name, date;
+						user = util.html("div", "user");
+
+						portrait = util.html("div", "portrait", "bg", "anim");
+						util.image.call(portrait, r.user.portrait);
+
+						name = util.html("h2", "name");
+						name.textContent = r.user.name;
+
+						user.appendChild(portrait);
+						user.appendChild(name);
+						return user;
+					}());
+
+					blurb = (function(){
+						var blurb, date, body;
+
+						blurb = util.html("div", "blurb", "anim");
+						
+						date = util.html("h3", "date");
+						date.textContent = (new Date(r.date)).toDateString();
+
+						body = util.html("p", "body");
+						body.textContent = r.blurb;
+
+						blurb.appendChild(date);
+						blurb.appendChild(body);
+						return blurb;
+					}());
+
+					review.appendChild(user);
+					review.appendChild(blurb);
+
+					reviews.appendChild(review);
+				});
+				hotel.appendChild(reviews);
 
 				return hotel;
 			};

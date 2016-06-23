@@ -28,12 +28,7 @@ $query->execute();
 
 $reviews = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach($reviews as &$review){
-	$review["body"] = html_entity_decode(
-		$review["body"],
-		ENT_HTML5 | ENT_QUOTES,
-		"UTF-8"
-	);
-	
+	$review["blurb"] = html_entity_decode($review["blurb"], ENT_HTML5);
 	$review["user"] = $user->get($review["user"]);
 }
 unset($review);
@@ -56,7 +51,7 @@ foreach($hotel["experiences"] as &$experience){
 unset($experience);
 $sql->closeCursor();
 
-echo json_encode($hotel, JSON_PRETTY_PRINT);
+echo json_encode($hotel, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
 /* HELPER CLASSES */
 class User{
@@ -66,7 +61,7 @@ class User{
 	function __construct(){
 		$this->db = db();
 		$this->query = $this->db->prepare(
-			"select id, CONCAT_WS(\" \", first, last) as name, portrait as image from users where id = :id limit 1;"
+			"select id, first as name, portrait from users where id = :id limit 1;"
 		);
 	}
 	
@@ -81,6 +76,6 @@ class User{
 			PDO::PARAM_INT
 		);
 		$this->query->execute();
-		return $this->query->fetchAll(PDO::FETCH_ASSOC);
+		return $this->query->fetch(PDO::FETCH_ASSOC);
 	}
 }

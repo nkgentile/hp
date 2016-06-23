@@ -52,13 +52,19 @@ div.hotel div.info{
 
 	padding: 20px;
 	position: relative;
-	bottom: -30%;
 
 	color: white;
+	background: linear-gradient(
+		to top,
+		black,
+		transparent
+	);
+
+	bottom: -50%;
 }
 
 div.hotel:hover div.info{
-	bottom: 0%;
+	bottom: 0;
 }
 
 div.hotel > *{

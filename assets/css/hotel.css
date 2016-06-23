@@ -13,21 +13,23 @@ div#hotel div.marquee{
 }
 
 div#hotel div.titleblock{
-	background-color: #F59E03;
-	flex: 0 0 100%;
+	flex: 0 0 30%;
 
 	display: flex;
 	flex-flow: column wrap;
-	justify-content: center;
-	color: white;
-	text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+	justify-content: flex-start;
+	color: #0C152A;
 	padding: 20px 0;
+
+	min-height: 600px;
+	font-family: Aracne;
+
+	background-color: white;
 }
 
-
 div#hotel div.experiences{
-	background-color: #EDEDED;
-	flex: 0 0 100%;
+	flex: 0 0 auto;
+	margin: 20px 0;
 
 	display: flex;
 	flex-flow: row no-wrap;
@@ -46,6 +48,75 @@ div#hotel div.experience{
 }
 
 div#hotel div.experience:hover{
-	background-color: #4E9CB5;
-	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.35);
+}
+
+div#hotel div.reviews{
+	flex: 0 0 70%;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+	align-items: flex-start;
+
+	background-color: white;
+}
+
+div#hotel div.review{
+	flex: 1 1 100%;
+
+	padding: 20px;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: flex-start;
+
+	cursor: pointer;
+}
+
+div#hotel div.review:hover{
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+}
+
+div#hotel div.user{
+	flex: 1 0 auto;
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	cursor: pointer;
+}
+
+div#hotel div.portrait{
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	//box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+div#hotel h2.name{
+	padding: 10pt;
+}
+
+div#hotel div.blurb{
+	flex: 0 0 80%;
+	text-align: left;
+}
+
+div#hotel p.body{
+	font-size: 12pt;
+	font-family: Arial;
+	line-height: 18pt;
+	background-color: white;
+	padding: 10pt 0;
+}
+
+div#hotel h3.date{
+	font-size: 18pt;
+	color: #02779E;
 }
