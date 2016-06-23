@@ -15,7 +15,7 @@ $query = $db->prepare("call hotel(:id)");
 $query->bindValue(":id", $id, PDO::PARAM_INT);
 $query->execute();
 
-$hotels = $query->fetchAll(PDO::FETCH_ASSOC);
+$hotel = $query->fetch(PDO::FETCH_ASSOC);
 $query->closeCursor();
 
 /* GET REVIEWS */
@@ -23,28 +23,40 @@ $db = db();
 $query = $db->prepare("call reviews(:id)");
 
 $user = new User();
-foreach($hotels as &$hotel){
-	$query->bindValue(":id", $hotel["id"], PDO::PARAM_INT);
-	$query->execute();
+$query->bindValue(":id", $hotel["id"], PDO::PARAM_INT);
+$query->execute();
 
-	$reviews = $query->fetchAll(PDO::FETCH_ASSOC);
-	foreach($reviews as &$review){
-		$review["body"] = html_entity_decode(
-			$review["body"],
-			ENT_HTML5 | ENT_QUOTES,
-			"UTF-8"
-		);
-		
-		$review["user"] = $user->get($review["user"]);
-	}
-	unset($review);
-	$hotel["reviews"] = $reviews;
+$reviews = $query->fetchAll(PDO::FETCH_ASSOC);
+foreach($reviews as &$review){
+	$review["body"] = html_entity_decode(
+		$review["body"],
+		ENT_HTML5 | ENT_QUOTES,
+		"UTF-8"
+	);
 	
+	$review["user"] = $user->get($review["user"]);
 }
-unset($hotel);
+unset($review);
+$hotel["reviews"] = $reviews;
 $query->closeCursor();
 
-echo json_encode($hotels, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+/* GET EXPERIENCES */
+$sql = db()->prepare("select experience_id as id from hotel_experiences where hotel_id = :id");
+$sql->bindValue(":id", $hotel["id"], PDO::PARAM_INT);
+$sql->execute();
+$hotel["experiences"] = $sql->fetchAll(PDO::FETCH_ASSOC);
+$sql->closeCursor();
+
+$sql = db()->prepare("select id, name, badge from experiences where id = :id");
+foreach($hotel["experiences"] as &$experience){
+	$sql->bindValue(":id", $experience["id"], PDO::PARAM_INT);
+	$sql->execute();
+	$experience = $sql->fetch(PDO::FETCH_ASSOC);
+}
+unset($experience);
+$sql->closeCursor();
+
+echo json_encode($hotel, JSON_PRETTY_PRINT);
 
 /* HELPER CLASSES */
 class User{

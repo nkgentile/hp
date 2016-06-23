@@ -39,8 +39,8 @@ div.hotel{
 	flex-flow: row wrap;
 	align-items: flex-end;
 	justify-content: center; 
-
-	outline: 10px solid #0C152A;
+	
+	outline: 2px solid black;
 }
 
 div.hotel div.info{

@@ -31,6 +31,7 @@ div#page{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
+	align-content: flex-start;
 	width: 100%;
 	height: 100%;
 }

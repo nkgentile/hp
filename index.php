@@ -9,6 +9,7 @@
 		@import "assets/css/user.css";
 		@import "assets/css/review.css";
 		@import "assets/css/explore.css";
+		@import "assets/css/hotel.css";
 	</style>
 	<script src="assets/js/hp.js" type="text/javascript"></script>
 </head>

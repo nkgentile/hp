@@ -84,7 +84,7 @@ HP = (function(){
 					console.error(this.responseText);
 					
 				HP.model = JSON.parse(this.responseText);
-				console.log(context.appendChild(render()));
+				context.appendChild(render());
 			});
 			xhr.send();
 			return xhr;
@@ -109,7 +109,10 @@ HP = (function(){
 					util.image.call(hotel, h.image);
 					showcase.appendChild(hotel);
 					hotel.addEventListener("click", function(e){
-						HP.page("hotel", "id="+hotel.id);
+						HP.page(
+							"hotel",
+							["id=",h.id].join("")
+						);
 					});
 
 					info = (function(){
@@ -355,6 +358,57 @@ HP = (function(){
 				return explore;
 			};
 			explore = util.ajax("api/explore.php", "", render, this);
+		},
+		"hotel": function(query){
+			var hotel, render;
+			render = function(){
+				var hotel, marquee, titleblock, experiences, reviews;
+
+				console.log(HP.model);
+
+				hotel = util.html("div");
+				hotel.id = "hotel";
+
+				marquee = util.html("div", "marquee", "bg");
+				util.image.call(marquee, HP.model.images);
+				hotel.appendChild(marquee);
+
+				titleblock = (function(){
+					var titleblock, name, address;
+					titleblock = util.html("div", "titleblock");
+
+					name = util.html("h1", "name");
+					name.textContent = HP.model.name;
+					titleblock.appendChild(name);
+
+					address = util.html("h2", "address");
+					address.textContent = HP.model.address;
+					titleblock.appendChild(address);
+
+
+					return titleblock;
+				}());
+				hotel.appendChild(titleblock);
+
+				experiences = (function(){
+					var experiences;
+					experiences = util.html("div", "experiences");
+					HP.model.experiences.forEach(function(e, i){
+						var experience;
+						experience = util.html("div", "experience", "anim", "bg");
+						util.image.call(experience, e.badge);
+						experience.addEventListener("click", function(){
+							HP.page("tag", ["type=experience&id=", e.id].join(""));
+						});
+						experiences.appendChild(experience);
+					});
+					return experiences;
+				}());
+				hotel.appendChild(experiences);
+
+				return hotel;
+			};
+			hotel = util.ajax("api/hotel.php", query, render, this);
 		}
 	};
 	
@@ -444,7 +498,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("showcase", "");
+			HP.page("hotel", "id=1");
 		});
 			
 		return function(page, query){
