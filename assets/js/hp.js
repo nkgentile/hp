@@ -98,147 +98,37 @@ HP = (function(){
 		"showcase": function(){
 			var showcase, render;
 			render = function(){
-				var reviews, add, showcase, slides, add,
-				index, next, prev, go,
-				timer, animate, stop, nav;
-				
-				reviews = HP.model;
-	
-				add = function(json){
-					var review, info, user, hotel;
+				var showcase, hotels;
 
-					review = util.html("div", "review", "anim");
-					util.image.call(review, json.image);
-					review.addEventListener("click", function(){
-						page("review", "id="+json.id);
+				showcase = util.html("div", "showcase");
+
+				hotels = HP.model;
+				hotels.forEach(function(h, i){
+					var hotel, info;
+					hotel = util.html("div", "hotel", "bg", "anim");
+					util.image.call(hotel, h.image);
+					showcase.appendChild(hotel);
+					hotel.addEventListener("click", function(e){
+						HP.page("hotel", "id="+hotel.id);
 					});
-					review.addEventListener("mouseenter", function(){
-						this.classList.add("active");
-					});
-					review.addEventListener("mouseleave", function(){
-						this.classList.remove("active");
-					});
-					showcase.appendChild(review);	
-					slides.push(review);
-		
-					info = util.html("footer", "info", "anim");
-					review.appendChild(info);
 
-					user = (function(){
-						var user, name, portrait;
-			
-						user = util.html("div", "user");
-						info.appendChild(user);
-			
-						portrait = new Image();
-						portrait.classList.add("anim");
-						portrait.src = "assets/img/" + json["portrait"];
-						user.appendChild(portrait);
+					info = (function(){
+						var info, hotel, location;
+						info = util.html("div", "info", "anim", "bg");
+						info.style.backgroundColor = ["rgba(", h.color, ",1)"].join("");
 
-						name = (function(){
-							var u, name;
-
-							u = util.html("div", "info", "anim");
-							user.appendChild(u);
-				
-							name = util.html("h3", "name");
-							name.innerHTML = json["user"];
-							//u.appendChild(name);
-				
-							return u;
-						}());
-
-						portrait.addEventListener("mouseover", function(){
-							util.active.call(name);
-						});
-						portrait.addEventListener("mouseout", function(){
-							util.active.call(name);
-						});
-						user.addEventListener("click", function(e){
-							page("user", "id="+json.id);
-							e.stopPropagation();
-						});
-					}());
-
-					hotel = (function(){
-						var hotel, name, city, blurb;
-
-						hotel = util.html("div", "hotel");
+						hotel = util.html("h2", "hotel");
+						hotel.textContent = h.name;
 						info.appendChild(hotel);
 
-						name = util.html("h1", "name");
-						name.innerHTML = json["hotel"];
-						hotel.appendChild(name);
+						location = util.html("h3", "location");
+						location.textContent = [h.city, h.country].join(", ");
+						info.appendChild(location);
 
-						city = util.html("h2", "location");
-						city.innerHTML = [
-							json["city"], json["country"]
-						].join(", ");
-						hotel.appendChild(city);
+						return info;
 					}());
-
-
-				};
-	
-				//navigation
-				index = 0;
-				next = function(){
-					index++;
-					index%=slides.length;
-					go();
-				};
-				prev = function(){
-					if(index === 0)
-						return;
-					index--;
-					go();
-				};
-				go = function(){
-					slides[0].style.marginLeft = [
-						"-",
-						index,
-						"00%"
-					].join("");
-					nav.forEach(function(node){
-						node.classList.remove("active");
-					});
-					nav[index].classList.add("active");
-				};
-
-				//Populate slideshow
-				slides = [];
-				showcase = util.html("div", "showcase");
-				reviews.forEach(add);
-				nav = (function(){
-					var nav, nodes, add;
-
-					add = function(element, i){
-						var node;
-						node = util.html("div", "node", "anim");
-						node.addEventListener("click", function(){
-							index = i;
-							go();
-						});
-						nav.appendChild(node);
-						nodes.push(node);
-					};
-
-					nodes = [];
-					nav = util.html("div", "nav");
-					//append nav somewhere
-					slides.forEach(add);
-					nodes[0].classList.add("active");
-					return nodes;
-				}());
-
-				//Animate slideshow
-				animate = (function(){
-				//	timer = setInterval(next, 3000);
-				}());
-
-				stop = function(){
-					clearInterval(timer);
-				};
+					hotel.appendChild(info);
+				});
 				return showcase;
 			};
 			showcase = util.ajax("api/showcase.php", "", render, this);
@@ -446,6 +336,7 @@ HP = (function(){
 					explore.appendChild(card);
 
 					badge = util.html("div", "badge", "anim", "bg");
+					badge.style.backgroundColor = c.color;
 					util.image.call(badge, c.badge);
 					card.appendChild(badge);
 
@@ -539,6 +430,14 @@ HP = (function(){
 			content = util.html("div", "view");
 			content.id = "content";
 			page.appendChild(content);
+
+			footer = (function(){
+				var footer;
+				footer = util.html("footer");
+				footer.id = "main";
+				page.appendChild(footer);
+				return footer;
+			}());
 		
 			document.body.appendChild(buffer);
 		};

@@ -4,39 +4,24 @@ div.showcase{
 	font-family: Aracne;
 	font-size: 1.25em;
 	flex: 0 0 100%;
-	align-self: stretch;
 	display: flex;
 	flex-flow: row-reverse wrap;
+	justify-content: center;
 }
 
-div.showcase > div.review:first-child{
+div.showcase > div.hotel:first-child{
 	flex: 0 0 100%;
-	height: 90%;
+	height: 60%;
+	max-height: 900px;
+	min-height: 300px;
+	justify-content: flex-end;
 }
 
-div.nav{
-	width: 100%;
-	text-align: center;
-	cursor: pointer;
-	position: absolute;
-	bottom: -2em;
+div.showcase > div.hotel:first-child div.info{
+	text-align: right;
 }
 
-div.nav div.node{
-	display: inline-block;
-	width: 0.5em;
-	height: 0.5em;
-	border-radius: 50%;
-	background-color: white;
-	margin: 1em;
-	opacity: 0.5;
-}
-
-div.nav div.node.active{
-	opacity: 1;
-}
-
-div.review{
+div.hotel{
 	cursor: pointer;
 	background-size: cover;
 	background-position: center;
@@ -46,79 +31,44 @@ div.review{
 
 	flex: 1 0 30%;
 	min-width: 475px;
-	margin: 1px;
-	height: 60%;
+	height: 30%;
+	min-height: 300px;
+	max-height: 600px;
 
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-end;
-	justify-content: center;
+	justify-content: center; 
+
+	outline: 10px solid #0C152A;
 }
 
-div.review footer.info{
+div.hotel div.info{
 	flex: 0 0 100%;
-
-	color: white;
-	text-shadow: 2px 2px 2px black;
-
-	padding: 1em;
-	margin: 2em;
-
 	display: flex;
 	flex-flow: row wrap;
-	align-content: center;
-	justify-content: center;
-	opacity: 0;
-}
+	justify-content: flex-start;
+	align-content: flex-end;
 
-div.review.active footer.info{
-	opacity: 1;
-}
-
-footer.info div.user{
-	flex: 1 1 auto; 
-}
-
-footer.info div.user img{
-	width: 5em;
-	height: 5em;
-	border-radius: 50%;
+	padding: 20px;
 	position: relative;
-	z-index: 1;
+	bottom: -30%;
+
+	color: white;
 }
 
-footer.info div.user img:hover{
-	box-shadow: 0px 5px 10px 2px rgba(0,0,0,0.5);
-}
-footer.info div.user div.info{
+div.hotel:hover div.info{
+	bottom: 0%;
 }
 
-footer.info div.user div.info.active{
-	opacity: 1;
-	right: 0;
+div.hotel > *{
+	text-shadow: 0px 2px 2px black;
 }
 
-footer.info div.hotel{
-	flex: 1 1 100%;
-	margin: 1em 0;
-	margin-top: -1em;
-	padding: 2em 3em;
-	border-top: 2px solid transparent;
-	box-shadow: 2px 2px 2px 2px transparent;
-	background: transparent;
-	transition: 300ms all ease-in-out;
-	opacity: 0;
+div.hotel div.info h2.hotel{
+	flex: 0 0 100%;
 }
 
-div.review.active div.hotel{
-	background: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.75)
-	);
-	box-shadow: -2px 0px 2px 2px rgba(0, 0, 0, 0.25);
-	border-color: white;
-	margin: 2em 0;
-	margin-top: -1.5em;
-	opacity: 1;
+div.hotel div.info h3.location{
+	flex: 0 0 100%;
 }

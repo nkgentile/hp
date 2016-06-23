@@ -1,12 +1,11 @@
 <?php
 
 require_once("../include/database.php");
-$db = new Database();
 
-$sql =	"CALL showcase()";
-$db->query($sql);
-$reviews = [];
-while($r = $db->get())
-	$reviews[] = $r;
+$db = db();
+$query = $db->prepare("call showcase()");
+$query->execute();
+$hotels = $query->fetchAll(PDO::FETCH_ASSOC);
+$query->closeCursor();
 
-echo json_encode($reviews);
+echo json_encode($hotels, JSON_PRETTY_PRINT);
