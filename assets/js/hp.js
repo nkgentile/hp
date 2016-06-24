@@ -411,12 +411,8 @@ HP = (function(){
 
 				reviews = util.html("div", "reviews");
 				HP.model.reviews.forEach(function(r, i){
-					console.log(r);
 					var review, user, blurb;
 					review = util.html("div", "review", "anim");
-					review.addEventListener("click", function(){
-						HP.page("review", "id="+r.id);
-					});
 
 					user = (function(){
 						var user, portrait, name, date;
@@ -441,8 +437,8 @@ HP = (function(){
 						date = util.html("h3", "date");
 						date.textContent = (new Date(r.date)).toDateString();
 
-						body = util.html("p", "body");
-						body.textContent = r.blurb;
+						body = util.html("div", "body");
+						body.innerHTML = r.body;
 
 						blurb.appendChild(date);
 						blurb.appendChild(body);

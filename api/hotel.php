@@ -29,6 +29,7 @@ $query->execute();
 $reviews = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach($reviews as &$review){
 	$review["blurb"] = html_entity_decode($review["blurb"], ENT_HTML5);
+	$review["body"] = html_entity_decode($review["body"], ENT_HTML5);
 	$review["user"] = $user->get($review["user"]);
 }
 unset($review);

@@ -74,10 +74,11 @@ div#hotel div.review{
 	align-items: flex-start;
 
 	cursor: pointer;
+
 }
 
-div#hotel div.review:hover{
-	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.25);
+div#hotel div.review p{
+	margin-bottom: 8pt;
 }
 
 div#hotel div.user{
@@ -108,12 +109,13 @@ div#hotel div.blurb{
 	text-align: left;
 }
 
-div#hotel p.body{
+div#hotel div.body{
 	font-size: 12pt;
 	font-family: Arial;
 	line-height: 18pt;
 	background-color: white;
 	padding: 10pt 0;
+	columns: 250px;
 }
 
 div#hotel h3.date{
