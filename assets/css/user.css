@@ -1,7 +1,10 @@
 div#user{
 	flex: 0 0 100%;
+
 	display: flex;
 	flex-flow: row wrap;
+	align-content: flex-start;
+	background-color: #0C152A;
 }
 
 header#user{
@@ -49,12 +52,18 @@ div#portrait img{
 }
 
 div#user div.review{
-	flex: 1 0 20%;
-	height: 2in;
-}
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
 
-div#user div.review:hover{
-	outline: 1px solid white;
-	z-index: 1;
-}
+	flex: 1 0 30%;
+	min-width: 475px;
+	height: 30%;
+	min-height: 300px;
+	max-height: 600px;
 
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-end;
+	justify-content: center;
+}

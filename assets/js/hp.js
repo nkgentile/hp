@@ -189,7 +189,7 @@ HP = (function(){
 					portrait.addEventListener("mouseover", util.active);
 					portrait.addEventListener("mouseout", util.active);
 					portrait.addEventListener("click", function(){
-						page("user", "id="+json.id);
+						HP.page("user", "id="+json.id);
 					});
 					user.appendChild(portrait);
 
@@ -230,8 +230,6 @@ HP = (function(){
 				header, profile,
 				reviews, footer;
 				
-				json = HP.model;
-				
 				user = util.html("div");
 				user.id = "user";
 				
@@ -240,7 +238,7 @@ HP = (function(){
 					
 					header = util.html("header", "bg");
 					header.id = "user";
-					util.image.call(header, json.background);
+					util.image.call(header, HP.model.background);
 					user.appendChild(header);
 
 					portrait = util.html("div", "anim");
@@ -249,13 +247,7 @@ HP = (function(){
 						(function(){
 							var image;
 							image = new Image;
-							image.src = util.asset("img", json.image);
-							image.addEventListener("mouseover", function(){
-								util.active.call(portrait);
-							});
-							image.addEventListener("mouseout", function(){
-								util.active.call(portrait);
-							});
+							image.src = util.asset("img", HP.model.portrait);
 							return image;
 						}())
 					);
@@ -271,15 +263,15 @@ HP = (function(){
 					user.appendChild(profile);
 
 					name = util.html("h1", "name");
-					name.innerHTML = json.name;
+					name.innerHTML = HP.model.name;
 					profile.appendChild(name);
 
 					city = util.html("h2", "city");
-					city.innerHTML = json.city;
+					city.innerHTML = HP.model.city;
 					profile.appendChild(city);
 
 					username = util.html("h2", "username");
-					username.innerHTML = json.username;
+					username.innerHTML = HP.model.username;
 					profile.appendChild(username);
 
 					return profile;
@@ -292,7 +284,7 @@ HP = (function(){
 						review = util.html("div", "review", "bg");
 						util.image.call(review, json.image);
 						review.addEventListener("click", function(){
-							page("review", "id="+json.id);
+							page("hotel", "id="+json.id);
 						});
 						
 						caption = util.html("div", "caption", "anim");
@@ -301,9 +293,8 @@ HP = (function(){
 						hotel.textContent = json.name;
 						review.appendChild(caption);
 						user.appendChild(review);
-						console.log(json);
 					};
-					json.reviews.forEach(add);
+					HP.model.reviews.forEach(add);
 				}());
 				
 				return user;
@@ -420,6 +411,9 @@ HP = (function(){
 
 						portrait = util.html("div", "portrait", "bg", "anim");
 						util.image.call(portrait, r.user.portrait);
+						portrait.addEventListener("click", function(){
+							HP.page("user", "id="+r.user.id);
+						});
 
 						name = util.html("h2", "name");
 						name.textContent = r.user.name;
@@ -544,7 +538,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("hotel", "id=1");
+			HP.page("showcase", "");
 		});
 			
 		return function(page, query){
