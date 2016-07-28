@@ -3,6 +3,7 @@ div#hotel{
 
 	display: flex;
 	flex-flow: row wrap;
+	justify-content: center;
 }
 
 div#hotel div.marquee{
@@ -13,31 +14,48 @@ div#hotel div.marquee{
 }
 
 div#hotel div.titleblock{
-	flex: 0 0 100%;
+	flex: 0 0 auto;
+	
+	transform: translateY(-50%);
+	margin-bottom: -100px;
 
 	display: flex;
 	flex-flow: column wrap;
 	justify-content: flex-start;
 	color: #0C152A;
-	padding: 20px 0;
+	padding: 30px 60px;
+	border-radius: 20px;
+	box-shadow: 0px 5px 2px 0px rgba(0, 0, 0, 0.25);
 
 	font-family: Aracne;
+	text-align: center;
 
 	background-color: white;
 }
 
+div#hotel h1.name{
+	font-family: Santo;
+	font-size: 45pt;
+	line-height: 0.7em;
+}
+
+div#hotel h2.city{
+	font-family: Aracne;
+	font-size: 20pt;
+}
+
 div#hotel div.experiences{
-	flex: 0 0 auto;
+	flex: 0 0 300px;
 	margin: 20px 0;
 
 	display: flex;
-	flex-flow: row no-wrap;
-	justify-content: center;
+	flex-flow: column wrap;
+	align-items: center;
 }
 
 div#hotel div.experience{
 	flex: 0 0 75px;
-	height: 75px;
+	width: 75px;
 	background-color: #02779E;
 	background-size: 60% 60%;
 	border-radius: 100%;
@@ -60,6 +78,8 @@ div#hotel div.reviews{
 	align-items: flex-start;
 
 	background-color: white;
+	
+	padding-top: 50px;
 }
 
 div#hotel div.review{
@@ -69,10 +89,13 @@ div#hotel div.review{
 
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: flex-start;
+	min-width: 900px;
 
 	cursor: pointer;
+	
+	position: relative;
 
 }
 
@@ -81,7 +104,7 @@ div#hotel div.review p{
 }
 
 div#hotel div.user{
-	flex: 1 0 auto;
+	flex: 0 0 300px;
 
 	display: flex;
 	flex-flow: column nowrap;
@@ -90,6 +113,9 @@ div#hotel div.user{
 	align-content: center;
 
 	cursor: pointer;
+	
+	position: relative;
+	float: left;
 }
 
 div#hotel div.portrait{
@@ -104,8 +130,9 @@ div#hotel h2.name{
 }
 
 div#hotel div.blurb{
-	flex: 0 0 80%;
-	text-align: left;
+	flex: 0 0 100%;
+	max-width: 600px;
+	text-align: justify;
 }
 
 div#hotel div.body{
@@ -114,7 +141,6 @@ div#hotel div.body{
 	line-height: 18pt;
 	background-color: white;
 	padding: 10pt 0;
-	columns: 250px;
 }
 
 div#hotel h3.date{

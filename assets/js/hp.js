@@ -442,8 +442,8 @@ HP = (function(){
 
 					titleblock.appendChild(name);
 					titleblock.appendChild(city);
-					titleblock.appendChild(experiences);
-					titleblock.appendChild(address);
+// 					titleblock.appendChild(experiences);
+// 					titleblock.appendChild(address);
 
 					return titleblock;
 				}());
@@ -451,10 +451,10 @@ HP = (function(){
 
 				reviews = util.html("div", "reviews");
 				HP.model.reviews.forEach(function(r, i){
-					var review, user, blurb;
+					var review, user, blurb, experiences;
 					review = util.html("div", "review", "anim");
 
-					user = (function(){
+					user = (function user(){
 						var user, portrait, name, date;
 						user = util.html("div", "user");
 
@@ -472,7 +472,7 @@ HP = (function(){
 						return user;
 					}());
 
-					blurb = (function(){
+					blurb = (function blurb(){
 						var blurb, date, body;
 
 						blurb = util.html("div", "blurb", "anim");
@@ -487,9 +487,25 @@ HP = (function(){
 						blurb.appendChild(body);
 						return blurb;
 					}());
+					
+					experiences = (function(){
+						var experiences;
+						experiences = util.html("div", "experiences");
+						HP.model.experiences.forEach(function(e, i){
+							var experience;
+							experience = util.html("div", "experience", "anim", "bg");
+							util.image.call(experience, e.badge);
+							experience.addEventListener("click", function(){
+								HP.page("tag", ["type=experience&id=", e.id].join(""));
+							});
+							experiences.appendChild(experience);
+						});
+						return experiences;
+					}());
 
 					review.appendChild(user);
 					review.appendChild(blurb);
+					review.appendChild(experiences);
 
 					reviews.appendChild(review);
 				});
