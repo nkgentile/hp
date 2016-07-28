@@ -98,9 +98,58 @@ HP = (function(){
 		"showcase": function(){
 			var showcase, render;
 			render = function(){
-				var showcase, hotels, slideshow;
-
+				var showcase, hotels, slideshow,
+				lastScroll, currentScroll, deltaScroll,
+				slideshow;
+				
 				showcase = util.html("div", "showcase");
+				
+				slideshow = {
+					"length": HP.model.length,
+					"index": 0,
+					"scroll":{
+						"last": new Date(),
+						"current": undefined,
+						"delta": function delta(){
+							return slideshow.scroll.current.getTime() - slideshow.scroll.last.getTime();
+						},
+						"reset": function reset(){
+							slideshow.scroll.last = slideshow.scroll.current;
+						}
+					},
+					"next": function next(){
+						if(slideshow.index === slideshow.length-1)
+							slideshow.index = 0;
+						else
+							slideshow.index+=1;
+							
+						slideshow.go(slideshow.index);
+					},
+					"prev": function prev(){
+						if(slideshow.index === 0)
+							slideshow.index = slideshow.length - 1;
+						else
+							slideshow.index -= 1;
+						
+						slideshow.go(slideshow.index);
+					},
+					"go": function go(i){
+						showcase.firstElementChild.style.marginLeft = ["-", i, "00%"].join("");
+					}
+				};
+				
+				showcase.addEventListener("wheel", function(e){
+					slideshow.scroll.current = new Date();
+					
+					if(slideshow.scroll.delta() > 500){
+						if(e.deltaY > 0)
+							slideshow.next();
+						else
+							slideshow.prev();
+							
+						slideshow.scroll.reset();
+					}
+				});
 
 				hotels = HP.model;
 				hotels.forEach(function(h, i){
@@ -119,7 +168,7 @@ HP = (function(){
 						var info, hotel, location;
 						info = util.html("div", "info", "anim", "bg");
 
-						hotel = util.html("h2", "hotel", "anim");
+						hotel = util.html("h1", "hotel", "anim");
 						hotel.textContent = h.name;
 						info.appendChild(hotel);
 
@@ -471,8 +520,7 @@ HP = (function(){
 			header, footer,
 			content, overlay;
 		
-			page = util.html("div");
-			page.id = "page";
+			page = util.html("div", "page", "anim");
 			buffer.appendChild(page);
 		
 			header = (function(){
@@ -550,11 +598,12 @@ HP = (function(){
 			HP.page("showcase", "");
 		});
 			
-		return function(page, query){
-			if(!pages[page])
-				return console.error("Page doesn't exist");
+		return function(name, query){
+			if(!pages[name])
+				return console.error("Page doesn't exist: " + name);
 			content.innerHTML = "";
-			pages[page].call(content, query);
+			document.getElementsByClassName("page")[0].id = name;
+			pages[name].call(content, query);
 		};
 	}());
 

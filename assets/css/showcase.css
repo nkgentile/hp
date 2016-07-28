@@ -1,3 +1,19 @@
+div#showcase.page header#main{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: initial;
+	box-shadow: initial;
+}
+
+div#showcase.page div#content{
+	height: 100%;
+}
+
+div#showcase.page footer#main{
+	display: none;
+}
+
 div.showcase{
 	position: relative;
 	font-family: Aracne;
@@ -5,10 +21,11 @@ div.showcase{
 	flex: 0 0 100%;
 	align-self: stretch;
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
+	flex-flow: row nowrap;
+	overflow: hidden;
 }
 
+/*
 div.showcase > div.hotel:first-child{
 	flex: 0 0 100%;
 	height: 60%;
@@ -20,6 +37,7 @@ div.showcase > div.hotel:first-child{
 div.showcase > div.hotel:first-child div.info{
 	text-align: right;
 }
+*/
 
 div.hotel{
 	cursor: pointer;
@@ -29,29 +47,22 @@ div.hotel{
 	overflow: hidden;
 	position: relative;
 
-	flex: 1 0 30%;
-	min-width: 475px;
-	height: 30%;
-	min-height: 300px;
-	max-height: 600px;
+	flex: 1 0 100%;
 
 	display: flex;
 	flex-flow: row wrap;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: center; 
-	
-	outline: 2px solid black;
 }
 
 div.hotel div.info{
-	flex: 0 0 100%;
+	flex: 0 0 auto;
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-start;
-	align-content: flex-end;
+	flex-flow: column wrap;
+	align-items: center;
 
-	padding: 20px;
 	position: relative;
+	padding: 30px 60px;
 
 	color: white;
 	background: linear-gradient(
@@ -59,22 +70,22 @@ div.hotel div.info{
 		black,
 		transparent
 	);
-
-	bottom: -50%;
-}
-
-div.hotel:hover div.info{
-	bottom: 0;
+	background: #E0E0E0;
+	background: white;
+	background: transparent;
+	border-radius: 10px;
+	/*border: 1px dotted white;*/
 }
 
 div.hotel > *{
 	text-shadow: 0px 2px 2px black;
 }
 
-div.hotel div.info h2.hotel{
-	flex: 0 0 100%;
+div.hotel div.info h1.hotel{
+	font-family: Santo;
+	font-size: 3em;
+	line-height: 0.7em;
 }
 
 div.hotel div.info h3.location{
-	flex: 0 0 100%;
 }
