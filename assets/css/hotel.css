@@ -13,7 +13,7 @@ div#hotel div.marquee{
 }
 
 div#hotel div.titleblock{
-	flex: 0 0 30%;
+	flex: 0 0 100%;
 
 	display: flex;
 	flex-flow: column wrap;
@@ -21,7 +21,6 @@ div#hotel div.titleblock{
 	color: #0C152A;
 	padding: 20px 0;
 
-	min-height: 600px;
 	font-family: Aracne;
 
 	background-color: white;
@@ -52,7 +51,7 @@ div#hotel div.experience:hover{
 }
 
 div#hotel div.reviews{
-	flex: 0 0 70%;
+	flex: 0 0 100%;
 
 	display: flex;
 	flex-flow: row wrap;

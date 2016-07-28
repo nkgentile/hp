@@ -98,7 +98,7 @@ HP = (function(){
 		"showcase": function(){
 			var showcase, render;
 			render = function(){
-				var showcase, hotels;
+				var showcase, hotels, slideshow;
 
 				showcase = util.html("div", "showcase");
 
@@ -449,6 +449,15 @@ HP = (function(){
 				return hotel;
 			};
 			hotel = util.ajax("api/hotel.php", query, render, this);
+		},
+		"tag": function tag(query){
+			var tag, render;
+			render = function(){
+				var tag = util.html("div");
+				console.log(HP.model);
+				return tag;
+			};
+			tag = util.ajax("api/tag.php", query, render, this);
 		}
 	};
 	
