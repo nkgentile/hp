@@ -19,7 +19,7 @@ div.showcase{
 	font-family: Aracne;
 	font-size: 1.25em;
 	flex: 0 0 100%;
-	align-self: stretch;
+	height: 100%;
 	display: flex;
 	flex-flow: row nowrap;
 	overflow: hidden;

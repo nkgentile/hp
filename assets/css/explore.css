@@ -26,6 +26,7 @@ div#explore h1#prompt{
 	font-size: 80pt;
 	display: block;
 	margin: 20pt;
+	text-align: center;
 	color: white;
 	text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
 }
@@ -96,4 +97,5 @@ div#explore h3.title{
 	color: white;
 	font-size: 24pt;
 	text-shadow: 0px 2px 2px rgba(0, 0, 0, 1.0);
+	text-align: center;
 }

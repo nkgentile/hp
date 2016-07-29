@@ -401,26 +401,24 @@ HP = (function(){
 		"hotel": function(query){
 			var hotel, render;
 			render = function(){
-				var hotel, marquee, titleblock, reviews;
-
-				console.log(HP.model);
-
+				var hotel, marquee, titleblock,
+				reviews, info, map;
+				
 				hotel = util.html("div");
 				hotel.id = "hotel";
-
+				
 				marquee = util.html("div", "marquee", "bg");
 				util.image.call(marquee, HP.model.images);
-				hotel.appendChild(marquee);
 
 				titleblock = (function(){
-					var titleblock, name, city, country, address, phone, experiences;
+					var titleblock, name, city,
+					country, address, phone,
+					experiences;
+					
 					titleblock = util.html("div", "titleblock");
 
 					name = util.html("h1", "name");
 					name.textContent = HP.model.name;
-
-					address = util.html("h1", "address");
-					address.innerHTML = HP.model.address;
 
 					city = util.html("h2", "city");
 					city.textContent = [HP.model.city, HP.model.country].join(", ");
@@ -447,11 +445,12 @@ HP = (function(){
 
 					return titleblock;
 				}());
-				hotel.appendChild(titleblock);
-
+				
 				reviews = util.html("div", "reviews");
 				HP.model.reviews.forEach(function(r, i){
-					var review, user, blurb, experiences;
+					var review, user,
+					blurb, experiences;
+					
 					review = util.html("div", "review", "anim");
 
 					user = (function user(){
@@ -509,17 +508,71 @@ HP = (function(){
 
 					reviews.appendChild(review);
 				});
+				
+				map = (function map(){
+					var url, image, map;
+					
+					url = [
+						"https://maps.googleapis.com/maps/api/staticmap?",
+						"format=png32&center=",
+						HP.model.latitude,
+						",",
+						HP.model.longitude,
+						"&",
+						"zoom=14&size=640x640&",
+						"markers=color:black|",
+						HP.model.latitude, ",",
+						HP.model.longitude,
+						"&",
+						"scale=2&",
+						"key=AIzaSyAefEZ492qLVz9D0pNhb300hafvoxYKwaE"
+					].join("");
+					
+					image = new Image();
+					image.src = url;
+					
+					map = util.html("div", "map", "bg");
+					map.style.backgroundImage = [
+						"url(", image.src, ")"
+					].join("");
+											
+					return map;
+				}());
+				
+				info = (function info(){
+					var info, address;	
+					
+					info = util.html("div", "info");
+										
+					address = util.html("h1", "address");
+					address.innerHTML = HP.model.address;
+					
+					info.appendChild(address);
+					
+					return info;
+				}());
+				
+				hotel.appendChild(marquee);
+				hotel.appendChild(titleblock);
 				hotel.appendChild(reviews);
-
+				hotel.appendChild(info);
+				hotel.appendChild(map);
+				
 				return hotel;
 			};
 			hotel = util.ajax("api/hotel.php", query, render, this);
 		},
-		"tag": function tag(query){
+		"tag1": function tag(query){
 			var tag, render;
 			render = function(){
 				var tag = util.html("div");
-				console.log(HP.model);
+				tag.id = "tag";
+				
+				marquee = util.html("div", "marquee", "bg");
+				util.image.call(marquee, HP.model.image);
+				
+				hotel.appendChild(marquee);
+				
 				return tag;
 			};
 			tag = util.ajax("api/tag.php", query, render, this);
