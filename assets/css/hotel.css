@@ -46,7 +46,6 @@ div#hotel h2.city{
 
 div#hotel div.experiences{
 	flex: 0 0 300px;
-	margin: 20px 0;
 
 	display: flex;
 	flex-flow: column wrap;
@@ -54,8 +53,15 @@ div#hotel div.experiences{
 }
 
 div#hotel div.experience{
-	flex: 0 0 75px;
-	width: 75px;
+	width: 100%;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+}
+
+div#hotel div.experience div.badge{
+	flex: 0 0 25px;
+	width: 25px;
 	background-color: #02779E;
 	background-size: 60% 60%;
 	border-radius: 100%;
@@ -64,8 +70,13 @@ div#hotel div.experience{
 	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
-div#hotel div.experience:hover{
+div#hotel div.experience:hover div.badge{
 	box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.35);
+}
+
+div#hotel div.experience p.name{
+	flex: 1 0 auto;
+	margin: 0;
 }
 
 div#hotel div.reviews{
@@ -158,6 +169,14 @@ div#hotel div.info{
 	background: #02779E;
 	text-align: center;
 	padding: 30px 0;
+}
+
+div#hotel a.phone, div#hotel a.website{
+	color: white;
+	display: block;
+	font-size: 1.5em;
+	line-height: 1.25em;
+	font-family: Helvetica;
 }
 
 div#hotel h1.address{

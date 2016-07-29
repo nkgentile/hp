@@ -488,15 +488,29 @@ HP = (function(){
 					}());
 					
 					experiences = (function(){
-						var experiences;
+						var experiences, title;
 						experiences = util.html("div", "experiences");
+						
+						title = util.html("h3");
+						title.textContent = "Experiences";
+						experiences.appendChild(title);
+						
 						HP.model.experiences.forEach(function(e, i){
-							var experience;
-							experience = util.html("div", "experience", "anim", "bg");
-							util.image.call(experience, e.badge);
-							experience.addEventListener("click", function(){
+							var experience, badge, name;
+							
+							experience = util.html("div", "experience");
+							
+							badge = util.html("div", "badge", "anim", "bg");
+							util.image.call(badge, e.badge);
+							badge.addEventListener("click", function(){
 								HP.page("tag", ["type=experience&id=", e.id].join(""));
 							});
+							
+							name = util.html("p");
+							name.textContent = e.name;
+							
+							experience.appendChild(badge);
+							experience.appendChild(name);
 							experiences.appendChild(experience);
 						});
 						return experiences;
@@ -510,7 +524,7 @@ HP = (function(){
 				});
 				
 				map = (function map(){
-					var url, image, map;
+					var url, image, map, api;
 					
 					url = [
 						"https://maps.googleapis.com/maps/api/staticmap?",
@@ -532,22 +546,56 @@ HP = (function(){
 					image.src = url;
 					
 					map = util.html("div", "map", "bg");
-					map.style.backgroundImage = [
-						"url(", image.src, ")"
-					].join("");
+									
+					api = util.html("script");
+					api.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAefEZ492qLVz9D0pNhb300hafvoxYKwaE";
+					document.head.appendChild(api);
+					api.addEventListener("load", function(){
+						var position, gmap, marker;
+						
+						position = new google.maps.LatLng(
+							HP.model.latitude,
+							HP.model.longitude
+						);					
+					
+						gmap = new google.maps.Map(map, {
+							center: position,
+							zoom: 16,
+							streetViewControl: false,
+							scrollwheel: false,
+							fullscreenControl: true,
+							mapTypeControl: false
+						});
+						
+						marker = new google.maps.Marker({
+							position: position,
+							map: gmap
+						});
+					});
 											
 					return map;
 				}());
 				
 				info = (function info(){
-					var info, address;	
+					var info, address, phone, website;	
 					
 					info = util.html("div", "info");
 										
 					address = util.html("h1", "address");
 					address.innerHTML = HP.model.address;
 					
+					phone = util.html("a", "phone");
+					phone.href = ["tel:", HP.model.phone].join("");
+					phone.textContent = HP.model.phone;
+					
+					website = util.html("a", "website");
+					website.target = "_blank";
+					website.href = HP.model.website;
+					website.textContent = HP.model.website;
+					
 					info.appendChild(address);
+					info.appendChild(phone);
+					info.appendChild(website);
 					
 					return info;
 				}());
