@@ -12,6 +12,7 @@
 		@import "assets/css/hotel.css";
 	</style>
 	<script src="assets/js/hp.js" type="text/javascript"></script>
+	<script id="gmaps"></script>
 </head>
 <body>
 </body>

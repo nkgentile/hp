@@ -27,7 +27,7 @@ HP = (function(){
 			return html;
 		},
 		"image": function(filename){
-			var target, image, fadein;
+			var target, fullImage, smallImage, fadein;
 			
 			fadein = function(){
 				var opacity, rate, fadein;
@@ -48,16 +48,24 @@ HP = (function(){
 
 			target = this;
 
-			image = new Image();
-			image.src = util.asset("img", filename);
-			image.addEventListener("load", function(){
+			fullImage = new Image();
+			fullImage.src = util.asset("images/large", filename);
+			fullImage.addEventListener("load", function(){
 				target.style.backgroundImage = [
 					"url(",
-					image.src,
+					util.asset("images/large", filename),
 					")"
 				].join("");
 				//fadein();
 			});
+			
+			smallImage = new Image();
+			smallImage.src = util.asset("images/small", filename);
+			target.style.backgroundImage = [
+					"url(",
+					util.asset("images/small", filename),
+					")"
+			].join("");
 		},
 		"ajax": function(file, param, render, context){
 			var buffer, xhr, query, nocache;
@@ -656,7 +664,7 @@ HP = (function(){
 
 				logo = new Image();
 				logo.id = "logo";
-				logo.src = "assets/svg/logo.svg";
+				logo.src = "assets/images/svg/logo.svg";
 				title.appendChild(logo);
 
 				subtitle = util.html("h1");
