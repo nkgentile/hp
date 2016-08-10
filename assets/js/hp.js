@@ -431,6 +431,7 @@ HP = (function(){
 					city = util.html("h2", "city");
 					city.textContent = [HP.model.city, HP.model.country].join(", ");
 
+					/*
 					experiences = (function(){
 						var experiences;
 						experiences = util.html("div", "experiences");
@@ -445,11 +446,14 @@ HP = (function(){
 						});
 						return experiences;
 					}());
+					*/
 
 					titleblock.appendChild(name);
 					titleblock.appendChild(city);
-// 					titleblock.appendChild(experiences);
-// 					titleblock.appendChild(address);
+					/*
+ 					titleblock.appendChild(experiences);
+ 					titleblock.appendChild(address);
+					*/
 
 					return titleblock;
 				}());
@@ -466,7 +470,12 @@ HP = (function(){
 						user = util.html("div", "user");
 
 						portrait = util.html("div", "portrait", "bg", "anim");
-						util.image.call(portrait, r.user.portrait);
+						portrait.style.backgroundImage = [
+							"url(",
+							"assets/images/small/",
+							r.user.portrait,
+							")"
+						].join("");
 						portrait.addEventListener("click", function(){
 							HP.page("user", "id="+r.user.id);
 						});
@@ -509,7 +518,12 @@ HP = (function(){
 							experience = util.html("div", "experience");
 							
 							badge = util.html("div", "badge", "anim", "bg");
-							util.image.call(badge, e.badge);
+							badge.style.backgroundImage = [
+								"url(",
+								"assets/images/svg/",
+								e.badge,
+								")"
+							].join("");
 							badge.addEventListener("click", function(){
 								HP.page("tag", ["type=experience&id=", e.id].join(""));
 							});
@@ -632,6 +646,128 @@ HP = (function(){
 				return tag;
 			};
 			tag = util.ajax("api/tag.php", query, render, this);
+		},
+		"destinations": function destinations(query){
+			var destinations, render;
+			render = function(){
+				var buffer, map, info;
+				buffer = new DocumentFragment();
+
+				info = (function(){
+					var model, info, image, set;
+
+					info = document.createElement("div");
+					info.classList.add("info");
+					console.log(info);
+
+					image = util.html("div", "marquee", "bg");
+
+					set = function(data){
+						model = data;
+						info.innerHTML = null;
+						image.style.backgroundImage = [
+							"url(",
+							"assets/images/small/",
+							model.hotel.image,
+							")"
+						].join("");
+						info.appendChild(image);
+					};
+
+					return {
+						"set": set,
+						"element": info
+					};
+				}());
+				
+				map = (function map(){
+					var url, image, map, api, add;
+					
+					map = util.html("div", "map", "bg");
+									
+					api = util.html("script");
+					api.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAefEZ492qLVz9D0pNhb300hafvoxYKwaE";
+
+					add = function(){
+						var gmap, bounds;
+
+						gmap = new google.maps.Map(map, {
+							zoom: 6,
+							streetViewControl: false,
+							scrollwheel: false,
+							fullscreenControl: false,
+							mapTypeControl: false,
+							zoomControl: true,
+							zoomControlOptions:{
+								position: google.maps.ControlPosition.RIGHT_CENTER
+							}
+						});
+
+						bounds = new google.maps.LatLngBounds();
+						HP.model.forEach(function(e, i){
+							var marker, position, image;
+							position = new google.maps.LatLng(
+								e.hotel.latitude,
+								e.hotel.longitude
+							);
+
+							marker = new google.maps.OverlayView();
+							marker.addListener("click", function(){
+								gmap.panTo(position);
+								gmap.setZoom(6);
+								info.set(e);
+							});
+							marker.onAdd = function(){
+								image = document.createElement("div");
+								image.classList.add("marker");
+								/*
+								image.style.backgroundImage = [
+									"url(",
+									"assets/images/small/",
+									e.user.portrait,
+									")"
+								].join("");
+								*/
+								this.getPanes().overlayMouseTarget.appendChild(image);
+								google.maps.event.addDomListener(
+									image,
+									"click",
+									function(){
+										google.maps.event.trigger(marker, "click")
+									}
+								);
+							};
+							marker.draw = function(){
+								var overlayProjection, p;
+								overlayProjection = this.getProjection();
+								p = overlayProjection.fromLatLngToDivPixel(position);
+
+								image.style.left = (p.x - 7.5) + "px";
+								image.style.top = (p.y - 7.5) + "px";
+							};
+							marker.onRemove = function(){
+								image.parentNode.removeChild(image);
+								image = null;
+							};
+							marker.setMap(gmap);
+							bounds.extend(position);
+						});
+
+						gmap.fitBounds(bounds);
+					}
+	
+					api.addEventListener("load", add);
+					document.head.appendChild(api);
+
+					return map;
+				}());
+
+				buffer.appendChild(map);
+				buffer.appendChild(info.element);
+				
+				return buffer;
+			};
+			destinations = util.ajax("api/destinations.php", query, render, this);
 		}
 	};
 	
@@ -675,13 +811,16 @@ HP = (function(){
 					var nav, add, links;
 					links = [
 						{
-							"name": "explore",
+							"name": "explore"
 						},
 						{
-							"name": "how it works",
+							"name": "destinations"
 						},
 						{
-							"name": "about",
+							"name": "become a hotel poet"
+						},
+						{
+							"name": "about"
 						}
 					];
 					add = function(el){

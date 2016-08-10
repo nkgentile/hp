@@ -21,7 +21,7 @@ body, p, h1, h2, h3{
 
 body{
 	width: 100%;
-	min-width: 100vh;
+	min-width: 100vw;
 
 	background-color: black;
 	font-family: Aracne;

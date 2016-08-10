@@ -5,6 +5,12 @@ div#explore{
 	align-items: center;
 }
 
+div#explore header#main{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 div#explore div.marquee{
 	flex: 0 0 100%;
 	height: 600px;

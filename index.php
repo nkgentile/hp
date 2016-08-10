@@ -10,6 +10,7 @@
 		@import "assets/css/review.css";
 		@import "assets/css/explore.css";
 		@import "assets/css/hotel.css";
+		@import "assets/css/destinations.css";
 	</style>
 	<script src="assets/js/hp.js" type="text/javascript"></script>
 	<script id="gmaps"></script>
