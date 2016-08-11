@@ -382,12 +382,20 @@ HP = (function(){
 				cards.forEach(function(c, i){
 					var card, badge, title;
 					card = util.html("div", "card", "anim", "bg");
-					util.image.call(card, c.image);
+					card.style.backgroundImage = [
+						"url(assets/images/original/",
+						c.image,
+						")"
+					].join("");
 					explore.appendChild(card);
 
 					badge = util.html("div", "badge", "anim", "bg");
 					badge.style.backgroundColor = c.color;
-					util.image.call(badge, c.badge);
+					badge.style.backgroundImage = [
+						"url(assets/images/original/",
+						c.badge,
+						")"
+					].join("");
 					card.appendChild(badge);
 
 					title = util.html("h3", "title", "anim");

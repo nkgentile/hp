@@ -7,11 +7,28 @@ if(!$id){
 	die();
 }
 
-require_once("../include/database.php");
+function db(){
+	$dbh = new PDO("sqlite:../include/model.db");
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	return $dbh;
+}
 
 /* GET HOTEL */
 $db = db();
-$query = $db->prepare("call hotel(:id)");
+$sql = <<<SQL
+	select
+		id, name,
+        address, phone, website, latitude, longitude,
+        (select name from cities where id= city_id) as city,
+        (select name from countries where id= country_id) as country,
+        (select name from regions where id= region_id) as region,
+        (select filename from images where id = (select image_id from hotel_images where hotel_id = :id)) as images,
+        "" as reviews
+	from hotels
+	where id = :id
+    limit 1;
+SQL;
+$query = $db->prepare($sql);
 $query->bindValue(":id", $id, PDO::PARAM_INT);
 $query->execute();
 
@@ -20,7 +37,16 @@ $query->closeCursor();
 
 /* GET REVIEWS */
 $db = db();
-$query = $db->prepare("call reviews(:id)");
+$sql = <<<SQL
+	select
+		id,
+		date,
+        blurb, body,
+        user_id as user
+	from reviews
+    where hotel_id = :id;
+SQL;
+$query = $db->prepare($sql);
 
 $user = new User();
 $query->bindValue(":id", $hotel["id"], PDO::PARAM_INT);

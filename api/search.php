@@ -6,13 +6,26 @@ if(!$query){
 	echo "false";
 	die();
 }
-require_once("../include/database.php");
-$db = new Database();
-$sql = "CALL search(\"{$query}\")";
-$db->query($sql);
 
-$response = [];
-while($r = $db->get())
-	$response[] = $r;
-echo json_encode($response);
+function db(){
+	$dbh = new PDO("sqlite:../include/model.db");
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	return $dbh;
+}
+
+$sql = <<<SQL
+	SELECT
+		id, name, type
+		FROM dictionary
+		WHERE LOWER(name) LIKE LOWER(CONCAT("%", :query, "%"))
+        ORDER BY name
+		LIMIT 10
+	;
+SQL;
+$query = db()->prepare($sql);
+$query->bindValue(":query", $query, PDO::PARAM_STRING);
+$query->execute();
+$response = $query->fetch(PDO::FETCH_ASSOC);
+$query->closeCursor();
+echo json_encode($response, JSON_PRETTY_PRINT);
 

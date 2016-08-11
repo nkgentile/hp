@@ -1,6 +1,10 @@
 <?php
 
-require_once("../include/database.php");
+function db(){
+	$dbh = new PDO("sqlite:../include/model.db");
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	return $dbh;
+}
 
 /* GET REVIEWS */
 $query = db()->prepare("select id, user_id as user, hotel_id as hotel from reviews");
@@ -27,11 +31,7 @@ select
 	(select filename from images where id = (
 		select image_id from hotel_images where hotel_id = hotels.id limit 1
 	)) as image,
-	CONCAT_WS(
-		", ",
-		(select name from cities where id = city_id),
-		(select name from countries where id = country_id)
-	) as city
+	(select name from cities where id = city_id) || " " || (select name from countries where id = country_id) as city
 	from hotels where id = :id
 SQL;
 $query = db()->prepare($sql);

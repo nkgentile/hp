@@ -21,7 +21,7 @@ div#explore div.marquee{
 	align-items: center;
 	align-content: center;
 
-	background-image: url("../img/marquee.jpg");
+	background-image: url("../images/original/marquee.jpg");
 
 	border-bottom: 10pt solid #02779E;
 }

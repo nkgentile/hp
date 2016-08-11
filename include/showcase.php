@@ -3,23 +3,14 @@
 require_once "database.php";
 
 $db = new Database();
+$sql = <<<SQL
+select * from reviews limit 5
+SQL;
 
-$sql = "SELECT * ";
-$sql .= "FROM reviews ";
-$sql .= "LIMIT 5";
+$query = db()->query($sql);
+$query->execute();
 
-// $sql  =  "SELECT TOP 5 * ";
-// $sql .=	"FROM reviews ";
-// $sql .= "GROUP BY dose ";
-// $sql .= "ORDER BY max(time) desc;";
+$reviews = $query->fetchAll(PDO::FETCH_ASSOC);
+$query->closeCursor();
 
-$db->query($sql);
-
-$reviews = array();
-while($r = $db->get()){
-	$r->text = utf8_encode($r->text);
-	array_push($reviews, $r);
-}
-echo json_encode($reviews);
-
-?>
+echo json_encode($reviews, JSON_PRETTY_PRINT);
