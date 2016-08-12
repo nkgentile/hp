@@ -107,8 +107,7 @@ HP = (function(){
 			var showcase, render;
 			render = function(){
 				var showcase, hotels, slideshow,
-				lastScroll, currentScroll, deltaScroll,
-				slideshow;
+				lastScroll, currentScroll, deltaScroll;
 				
 				showcase = util.html("div", "showcase");
 				
@@ -361,12 +360,14 @@ HP = (function(){
 		"explore": function(){
 			var explore, render;
 			render = function(){
-				var explore, marquee, prompt, search, cards;
+				var explore, marquee, prompt,
+				search, showcase, cards, slideshow,
+				lastScroll, currentScroll, deltaScroll;
+				
 				explore = util.html("div");
 				explore.id = "explore";
 
 				marquee = util.html("div", "marquee", "anim", "bg");
-				explore.appendChild(marquee);
 
 				prompt = util.html("h1");
 				prompt.id = "prompt";
@@ -376,9 +377,59 @@ HP = (function(){
 				search = util.html("input", "search", "anim", "bg");
 				search.type = "text";
 				marquee.appendChild(search);
+				
+				showcase = util.html("div", "showcase");
+				
+				slideshow = {
+					"length": HP.model.length,
+					"index": 0,
+					"scroll":{
+						"last": new Date(),
+						"current": undefined,
+						"delta": function delta(){
+							return slideshow.scroll.current.getTime() - slideshow.scroll.last.getTime();
+						},
+						"reset": function reset(){
+							slideshow.scroll.last = slideshow.scroll.current;
+						}
+					},
+					"next": function next(){
+						if(slideshow.index === slideshow.length-1)
+							slideshow.index = 0;
+						else
+							slideshow.index+=1;
+							
+						slideshow.go(slideshow.index);
+					},
+					"prev": function prev(){
+						if(slideshow.index === 0)
+							slideshow.index = slideshow.length - 1;
+						else
+							slideshow.index -= 1;
+						
+						slideshow.go(slideshow.index);
+					},
+					"go": function go(i){
+						showcase.firstElementChild.style.marginLeft = ["-", i, "00%"].join("");
+					}
+				};
+				
+				showcase.addEventListener("wheel", function(e){
+					slideshow.scroll.current = new Date();
+					
+					if(slideshow.scroll.delta() > 500){
+						if(e.deltaY > 0)
+							slideshow.next();
+						else
+							slideshow.prev();
+							
+						slideshow.scroll.reset();
+					}
+				});
+
+				explore.appendChild(marquee);
 
 				cards = HP.model;
-
 				cards.forEach(function(c, i){
 					var card, badge, title;
 					card = util.html("div", "card", "anim", "bg");
@@ -387,7 +438,6 @@ HP = (function(){
 						c.image,
 						")"
 					].join("");
-					explore.appendChild(card);
 
 					badge = util.html("div", "badge", "anim", "bg");
 					badge.style.backgroundColor = c.color;
@@ -408,7 +458,11 @@ HP = (function(){
 					card.addEventListener("mouseleave", function(e){
 						card.classList.remove("active");
 					});
+					
+					explore.appendChild(card);
 				});
+				
+// 				explore.appendChild(showcase);
 
 				return explore;
 			};

@@ -11,6 +11,7 @@ body, p, h1, h2, h3{
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	background-color: black;
 }
 
 *.loading{
@@ -21,7 +22,6 @@ body, p, h1, h2, h3{
 
 body{
 	width: 100%;
-	min-width: 100vw;
 
 	background-color: black;
 	font-family: Aracne;
@@ -36,7 +36,7 @@ div.page{
 
 div#content{
 	position: relative;
-	flex: 0 0 auto;
+	flex: 0 0 100%;
 	height: calc(100% - 50px);
 	width: 100%;
 
