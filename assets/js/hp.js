@@ -847,27 +847,24 @@ HP = (function(){
 			buffer.appendChild(page);
 		
 			header = (function(){
-				var header, logo, title, subtitle, nav;
+				var header, logo, title,
+				subtitle, nav, search;
 
 				header = util.html("header");
 				header.id = "main";
-				page.appendChild(header);
 
 				title = util.html("div");
 				title.id = "title";
 				title.addEventListener("click", function(){
 					HP.page("showcase");
 				});
-				header.appendChild(title);
 
 				logo = new Image();
 				logo.id = "logo";
 				logo.src = "assets/images/svg/logo.svg";
-				title.appendChild(logo);
 
 				subtitle = util.html("h1");
 				subtitle.innerHTML = "Hotel Poet";
-				title.appendChild(subtitle);
 
 				nav = (function(){
 					var nav, add, links;
@@ -897,9 +894,117 @@ HP = (function(){
 					nav = util.html("nav");
 					nav.id = "main";
 					links.forEach(add);
-					header.appendChild(nav);
 					return nav;
 				}());
+
+				search = (function(){
+					var search, icon, query,
+					overlay, close, results,
+					marquee, field;
+
+					query = (function(){
+						var xhr, fetch;
+
+						xhr = new XMLHttpRequest();
+
+						fetch = function(query, context){
+							xhr.open("GET", "api/search.php?q=" + query, true);
+							xhr.onreadystatechange = function(e){
+								if(e.target.readyState < 4) return;
+
+								context.innerHTML = "";
+
+								if(e.target.response === "false"){
+									return context.textContent = "Sorry, no results were found...";
+								};
+
+								var results;
+								results = JSON.parse(e.target.response);
+								results.forEach(function(result, i){
+									var item, name, image;
+
+									image = new Image();
+									image.src = result.image;
+
+									item = document.createElement("div");
+									item.classList.add("item");
+									item.style.backgroundImage = [
+										"url(",
+										result.image,
+										")"
+									].join("");
+
+									name = document.createElement("h3");
+									name.classList.add("name");
+									name.textContent = result.name;
+
+									item.appendChild(name);
+									context.appendChild(item);
+								});
+							};
+							xhr.send();
+						}
+
+						return fetch;
+					}());
+
+					icon = document.createElement("div");
+					icon.id = "searchIcon";
+					icon.addEventListener("click", function(){
+						overlay.classList.remove("hidden");
+					});
+
+					overlay = document.createElement("div");
+					overlay.id = "overlay";
+					overlay.classList.add("hidden");
+
+					search = document.createElement("div");
+					search.id = "search";
+
+					close = document.createElement("div");
+					close.id = "close";
+					close.addEventListener("click", function(){
+						overlay.classList.add("hidden");
+					});
+
+					marquee = document.createElement("div");
+					marquee.id = "marquee";
+
+					results = document.createElement("div");
+					results.id = "results";
+					results.classList.add("hidden");
+
+					field = document.createElement("input");
+					field.type = "search";
+					field.addEventListener("input", function(){
+						if(this.value.match(/(^$|\W)/)){
+							this.value = "";
+							return results.classList.add("hidden");
+						}
+
+						results.classList.remove("hidden");
+						query(this.value, results);
+					});
+
+					marquee.appendChild(field);
+
+					search.appendChild(marquee);
+					search.appendChild(results);
+					search.appendChild(close);
+
+					overlay.appendChild(search);
+
+					page.appendChild(overlay);
+
+					return icon;
+				}());
+
+				title.appendChild(logo);
+				title.appendChild(subtitle);
+				nav.appendChild(search);
+				header.appendChild(title);
+				header.appendChild(nav);
+				page.appendChild(header);
 
 				return header;
 			}());

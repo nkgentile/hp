@@ -1,8 +1,8 @@
 <?php
 
-$query = filter_input(INPUT_GET, "query", FILTER_SANITIZE_STRING);
+$q = filter_input(INPUT_GET, "q", FILTER_SANITIZE_STRING);
 
-if(!$query){
+if(!$q){
 	echo "false";
 	die();
 }
@@ -15,17 +15,24 @@ function db(){
 
 $sql = <<<SQL
 	SELECT
-		id, name, type
-		FROM dictionary
-		WHERE LOWER(name) LIKE LOWER(CONCAT("%", :query, "%"))
-        ORDER BY name
-		LIMIT 10
-	;
+		id, name || ", " || (select name from countries where countries.id = country_id limit 1) as name,
+		"assets/images/original/marquee.jpg" as image, "city" as type
+		FROM cities
+		WHERE lower(name) LIKE lower("%{$q}%")
+
+	UNION
+
+	SELECT
+		id, name, "assets/images/original/marquee.jpg" as image,
+		"hotel" as type
+		FROM hotels
+		WHERE lower(name) LIKE lower("%{$q}%")
+
+	ORDER BY name;
 SQL;
 $query = db()->prepare($sql);
-$query->bindValue(":query", $query, PDO::PARAM_STRING);
 $query->execute();
-$response = $query->fetch(PDO::FETCH_ASSOC);
+$response = $query->fetchAll(PDO::FETCH_ASSOC);
 $query->closeCursor();
-echo json_encode($response, JSON_PRETTY_PRINT);
+echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 

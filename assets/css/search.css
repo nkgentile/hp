@@ -1,0 +1,126 @@
+div#searchIcon{
+	flex: 0 0 15pt;
+	width: 15pt;
+	height: 15pt;
+	background-image: url("../images/svg/search_white.svg");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0 1em;
+	cursor: pointer;
+}
+
+div#overlay{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 999;
+	overflow: hidden;
+	transition: 300ms transform ease-in-out;
+}
+
+div#overlay.hidden{
+	transform: translateY(-100%);
+}
+
+div#overlay div#close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 15pt;
+	height: 15pt;
+	margin: 15pt;
+
+	background-image: url("../images/svg/close.svg");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	cursor: pointer;
+}
+
+div#search{
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+div#search div#marquee{
+	flex: 1 1 25%;
+	width: 100%;
+
+	background-image: url("../images/original/marquee.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+div#search input{
+	flex: 0 0 800px;
+	height: 100px;
+	font-family: Helvetica;
+	font-size: 28pt;
+	text-align: center;
+	box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.25);
+	border: none;
+	outline: none;
+	background-color: white;
+	transition: 200ms box-shadow ease-in-out;
+}
+
+div#search input:focus{
+	box-shadow: 0px 5px 0px 0px #15AFEA;
+}
+
+div#search div#results{
+	flex: 1 1 90%;
+	width: 100%;
+
+	transition: 300ms flex-basis ease-in-out;
+
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+	justify-content: center;
+
+	overflow: auto;
+}
+
+div#search div#results.hidden{
+	flex: 0 0 0;
+}
+
+div#search div#results div.item{
+	flex: 0 0 300px;
+	height: 200px;
+	margin: 10pt;
+
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
+	align-items: flex-end;
+
+	cursor: pointer;
+}
+
+div#search div#results div.item h3.name{
+	flex: 0 0 auto;
+	color: white;
+	margin: 10px;
+}
