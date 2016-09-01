@@ -979,9 +979,12 @@ HP = (function(){
 					field.addEventListener("input", function(){
 						if(this.value.match(/(^$|\W)/)){
 							this.value = "";
-							return results.classList.add("hidden");
+							results.classList.add("hidden");
+							marquee.classList.add("full");
+							return;
 						}
 
+						marquee.classList.remove("full");
 						results.classList.remove("hidden");
 						query(this.value, results);
 					});

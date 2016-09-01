@@ -66,7 +66,12 @@ div#search div#marquee{
 	align-items: center;
 }
 
+div#search div#marquee.full{
+	flex: 1 1 100%;
+}
+
 div#search input{
+	-webkit-appearance: none;
 	flex: 0 0 800px;
 	height: 100px;
 	font-family: Helvetica;
@@ -96,10 +101,12 @@ div#search div#results{
 	justify-content: center;
 
 	overflow: auto;
+	opacity: 1;
 }
 
 div#search div#results.hidden{
 	flex: 0 0 0;
+	opacity: 0;
 }
 
 div#search div#results div.item{
