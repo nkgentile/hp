@@ -124,6 +124,8 @@ div#search div#results div.item{
 	align-items: flex-end;
 
 	cursor: pointer;
+
+	transition: 200ms opacity ease-in;
 }
 
 div#search div#results div.item h3.name{

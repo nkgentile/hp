@@ -40,7 +40,7 @@ div#explore div.item{
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	transition: 200ms box-shadow ease-in-out;
+	transition: 200ms box-shadow ease-in-out, 200ms opacity ease-in;
 	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0);
 	cursor: pointer;
 	display: flex;

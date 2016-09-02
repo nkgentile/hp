@@ -379,10 +379,18 @@ HP = (function(){
 					section.appendChild(title);
 
 					HP.model.hotels.forEach(function(hotel, i){
-						var item, title;
+						var item, image, title;
+
+						image = new Image();
+						image.src = hotel.image;
+						image.addEventListener("load", function load(){
+							item.style.opacity = 1;
+							this.removeEventListener("load", load);
+						});
 
 						item = document.createElement("div");
 						item.classList.add("item");
+						item.style.opacity = 0;
 						item.style.backgroundImage = [
 							"url(",
 							hotel.image,
@@ -411,10 +419,18 @@ HP = (function(){
 					section.appendChild(title);
 
 					HP.model.experiences.forEach(function(experience, i){
-						var item, title;
+						var item, title, image;
+
+						image = new Image();
+						image.src = experience.image;
+						image.addEventListener("load", function load(){
+							item.style.opacity = 1;
+							this.removeEventListener("load", load);
+						});
 
 						item = document.createElement("div");
 						item.classList.add("item");
+						item.style.opacity = 0;
 						item.style.backgroundImage = [
 							"url(",
 							experience.image,
@@ -896,9 +912,14 @@ HP = (function(){
 
 									image = new Image();
 									image.src = result.image;
+									image.addEventListener("load", function load(){
+										item.style.opacity = 1;
+										this.removeEventListener("load", load);
+									});
 
 									item = document.createElement("div");
 									item.classList.add("item");
+									item.style.opacity = 0;
 									item.style.backgroundImage = [
 										"url(",
 										result.image,
