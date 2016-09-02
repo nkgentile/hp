@@ -360,11 +360,82 @@ HP = (function(){
 		"explore": function(){
 			var explore, render;
 			render = function(){
-				var explore;
-				
-				explore = util.html("div");
-				explore.id = "explore";
+				var explore, hotels, experiences;
 
+				explore = new DocumentFragment();
+
+				hotels = (function(){
+					var section, title;
+					section = document.createElement("section");
+					section.classList.add("type");
+
+					title = document.createElement("h1");
+					title.classList.add("title");
+					title.textContent = "Hotels";
+					section.appendChild(title);
+
+					HP.model.hotels.forEach(function(hotel, i){
+						var item;
+
+						item = document.createElement("div");
+						item.classList.add("item");
+						item.style.backgroundImage = [
+							"url(",
+							hotel.image,
+							")"
+						].join("");
+
+						section.appendChild(item);
+					});
+
+					HP.model.experiences.forEach(function(experience, i){
+						var item;
+
+						item = document.createElement("div");
+						item.classList.add("item");
+						item.style.backgroundImage = [
+							"url(",
+							experience.image,
+							")"
+						].join("");
+
+						section.appendChild(item);
+					});
+
+
+					return section;
+				}());
+
+				experiences = (function(){
+					var section, title;
+					section = document.createElement("section");
+					section.classList.add("type");
+
+					title = document.createElement("h1");
+					title.classList.add("title");
+					title.textContent = "Experiences";
+					section.appendChild(title);
+
+					HP.model.experiences.forEach(function(experience, i){
+						var item;
+
+						item = document.createElement("div");
+						item.classList.add("item");
+						item.style.backgroundImage = [
+							"url(",
+							experience.image,
+							")"
+						].join("");
+
+						section.appendChild(item);
+					});
+
+
+					return section;
+				}());
+
+				explore.appendChild(hotels);
+				explore.appendChild(experiences);
 				return explore;
 			};
 			explore = util.ajax("api/explore.php", "", render, this);
@@ -852,6 +923,7 @@ HP = (function(){
 					icon = document.createElement("div");
 					icon.id = "searchIcon";
 					icon.addEventListener("click", function(){
+						document.body.classList.add("fixed");
 						overlay.classList.remove("hidden");
 					});
 
@@ -865,6 +937,7 @@ HP = (function(){
 					close = document.createElement("div");
 					close.id = "close";
 					close.addEventListener("click", function(){
+						document.body.classList.remove("fixed");
 						overlay.classList.add("hidden");
 					});
 
@@ -927,7 +1000,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("showcase", "");
+			HP.page("explore", "");
 		});
 			
 		return function(name, query){

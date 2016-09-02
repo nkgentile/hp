@@ -27,9 +27,11 @@ body{
 	font-family: Aracne;
 }
 
-div.page{
-	flex: 0 0 100%;
+body.fixed{
+	position: fixed;
+}
 
+div.page{
 	display: flex;
 	flex-flow: column wrap;
 }
