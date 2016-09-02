@@ -162,7 +162,11 @@ HP = (function(){
 				hotels.forEach(function(h, i){
 					var hotel, info;
 					hotel = util.html("div", "hotel", "bg", "anim");
-					util.image.call(hotel, h.image);
+					hotel.style.backgroundImage = [
+						"url(",
+						h.image,
+						")"
+					].join("");
 					showcase.appendChild(hotel);
 					hotel.addEventListener("click", function(e){
 						HP.page(
@@ -360,110 +364,77 @@ HP = (function(){
 		"explore": function(){
 			var explore, render;
 			render = function(){
-				var explore, marquee, prompt,
-				search, showcase, cards, slideshow,
-				lastScroll, currentScroll, deltaScroll;
-				
-				explore = util.html("div");
-				explore.id = "explore";
+				var explore, hotels, experiences;
 
-				marquee = util.html("div", "marquee", "anim", "bg");
+				explore = new DocumentFragment();
 
-				prompt = util.html("h1");
-				prompt.id = "prompt";
-				prompt.textContent = "Where would you like to go?";
-				marquee.appendChild(prompt);
+				hotels = (function(){
+					var section, title;
+					section = document.createElement("section");
+					section.classList.add("type");
 
-				search = util.html("input", "search", "anim", "bg");
-				search.type = "text";
-				marquee.appendChild(search);
-				
-				showcase = util.html("div", "showcase");
-				
-				slideshow = {
-					"length": HP.model.length,
-					"index": 0,
-					"scroll":{
-						"last": new Date(),
-						"current": undefined,
-						"delta": function delta(){
-							return slideshow.scroll.current.getTime() - slideshow.scroll.last.getTime();
-						},
-						"reset": function reset(){
-							slideshow.scroll.last = slideshow.scroll.current;
-						}
-					},
-					"next": function next(){
-						if(slideshow.index === slideshow.length-1)
-							slideshow.index = 0;
-						else
-							slideshow.index+=1;
-							
-						slideshow.go(slideshow.index);
-					},
-					"prev": function prev(){
-						if(slideshow.index === 0)
-							slideshow.index = slideshow.length - 1;
-						else
-							slideshow.index -= 1;
-						
-						slideshow.go(slideshow.index);
-					},
-					"go": function go(i){
-						showcase.firstElementChild.style.marginLeft = ["-", i, "00%"].join("");
-					}
-				};
-				
-				showcase.addEventListener("wheel", function(e){
-					slideshow.scroll.current = new Date();
-					
-					if(slideshow.scroll.delta() > 500){
-						if(e.deltaY > 0)
-							slideshow.next();
-						else
-							slideshow.prev();
-							
-						slideshow.scroll.reset();
-					}
-				});
+					title = document.createElement("h1");
+					title.classList.add("title");
+					title.textContent = "Hotels";
+					section.appendChild(title);
 
-				explore.appendChild(marquee);
+					HP.model.hotels.forEach(function(hotel, i){
+						var item, title;
 
-				cards = HP.model;
-				cards.forEach(function(c, i){
-					var card, badge, title;
-					card = util.html("div", "card", "anim", "bg");
-					card.style.backgroundImage = [
-						"url(assets/images/original/",
-						c.image,
-						")"
-					].join("");
+						item = document.createElement("div");
+						item.classList.add("item");
+						item.style.backgroundImage = [
+							"url(",
+							hotel.image,
+							")"
+						].join("");
 
-					badge = util.html("div", "badge", "anim", "bg");
-					badge.style.backgroundColor = c.color;
-					badge.style.backgroundImage = [
-						"url(assets/images/original/",
-						c.badge,
-						")"
-					].join("");
-					card.appendChild(badge);
+						title = document.createElement("h3");
+						title.classList.add("name");
+						title.textContent = hotel.name;
 
-					title = util.html("h3", "title", "anim");
-					title.textContent = c.name;
-					card.appendChild(title);
-
-					card.addEventListener("mouseenter", function(e){
-						card.classList.add("active");
+						item.appendChild(title);
+						section.appendChild(item);
 					});
-					card.addEventListener("mouseleave", function(e){
-						card.classList.remove("active");
-					});
-					
-					explore.appendChild(card);
-				});
-				
-// 				explore.appendChild(showcase);
 
+					return section;
+				}());
+
+				experiences = (function(){
+					var section, title;
+					section = document.createElement("section");
+					section.classList.add("type");
+
+					title = document.createElement("h1");
+					title.classList.add("title");
+					title.textContent = "Experiences";
+					section.appendChild(title);
+
+					HP.model.experiences.forEach(function(experience, i){
+						var item, title;
+
+						item = document.createElement("div");
+						item.classList.add("item");
+						item.style.backgroundImage = [
+							"url(",
+							experience.image,
+							")"
+						].join("");
+
+						title = document.createElement("h3");
+						title.classList.add("name");
+						title.textContent = experience.name;
+
+						item.appendChild(title);
+						section.appendChild(item);
+					});
+
+
+					return section;
+				}());
+
+				explore.appendChild(hotels);
+				explore.appendChild(experiences);
 				return explore;
 			};
 			explore = util.ajax("api/explore.php", "", render, this);
@@ -951,6 +922,7 @@ HP = (function(){
 					icon = document.createElement("div");
 					icon.id = "searchIcon";
 					icon.addEventListener("click", function(){
+						document.body.classList.add("fixed");
 						overlay.classList.remove("hidden");
 					});
 
@@ -964,6 +936,7 @@ HP = (function(){
 					close = document.createElement("div");
 					close.id = "close";
 					close.addEventListener("click", function(){
+						document.body.classList.remove("fixed");
 						overlay.classList.add("hidden");
 					});
 
