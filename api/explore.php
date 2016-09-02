@@ -12,22 +12,21 @@ $response = [];
 $sql = <<<SQL
 	SELECT
 		id, name, 
-		"assets/images/original/marquee.jpg" as image
+		"assets/images/small/" || image as image
 
 	FROM hotels
-	LIMIT 10;
+	LIMIT 9;
 SQL;
 $query = db()->prepare($sql);
 $query->execute();
 $response["hotels"] = $query->fetchAll(PDO::FETCH_ASSOC);
 
-/* Reviews */
+/* Experiences */
 $sql = <<<SQL
 	SELECT
-		id, name,
-		"assets/images/original/marquee.jpg" as image
+		id, name, "assets/images/small/" || image as image
 	FROM experiences
-	LIMIT 10;
+	LIMIT 9;
 SQL;
 $query = db()->prepare($sql);
 $query->execute();

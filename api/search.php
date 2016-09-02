@@ -16,14 +16,14 @@ function db(){
 $sql = <<<SQL
 	SELECT
 		id, name || ", " || (select name from countries where countries.id = country_id limit 1) as name,
-		"assets/images/original/marquee.jpg" as image, "city" as type
+		"assets/images/small/" || image as image, "city" as type
 		FROM cities
 		WHERE lower(name) LIKE lower("%{$q}%")
 
 	UNION
 
 	SELECT
-		id, name, "assets/images/original/marquee.jpg" as image,
+		id, name, "assets/images/small/" || image as image,
 		"hotel" as type
 		FROM hotels
 		WHERE lower(name) LIKE lower("%{$q}%")

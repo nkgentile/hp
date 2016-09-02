@@ -10,10 +10,9 @@ function db(){
 $db = db();
 $sql = <<<SQL
 	select
-		id, name,
+		id, name, "assets/images/large/" || image as image,
         (select name from cities where id = hotel.city_id) as city,
         (select name from countries where id = hotel.country_id) as country,
-        (select filename from images where id = (select image_id from hotel_images where hotel_id = hotel.id)) as image,
         "hotel" as type
         from hotels as hotel
         order by most_recent DESC

@@ -16,7 +16,7 @@ div#explore footer#main{
 
 div#explore section.type{
 	flex: 0 0 100%;
-	max-width: 1400px;
+	max-width: 1000px;
 	margin: 10pt;
 
 	display: flex;
@@ -43,8 +43,19 @@ div#explore div.item{
 	transition: 200ms box-shadow ease-in-out;
 	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0);
 	cursor: pointer;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
+	align-items: flex-end;
 }
 
 div#explore div.item:hover{
 	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+div#explore div.item h3.name{
+	flex: 0 0 auto;
+	text-align: right;
+	margin: 10pt;
+	color: white;
 }

@@ -162,7 +162,11 @@ HP = (function(){
 				hotels.forEach(function(h, i){
 					var hotel, info;
 					hotel = util.html("div", "hotel", "bg", "anim");
-					util.image.call(hotel, h.image);
+					hotel.style.backgroundImage = [
+						"url(",
+						h.image,
+						")"
+					].join("");
 					showcase.appendChild(hotel);
 					hotel.addEventListener("click", function(e){
 						HP.page(
@@ -375,7 +379,7 @@ HP = (function(){
 					section.appendChild(title);
 
 					HP.model.hotels.forEach(function(hotel, i){
-						var item;
+						var item, title;
 
 						item = document.createElement("div");
 						item.classList.add("item");
@@ -385,23 +389,13 @@ HP = (function(){
 							")"
 						].join("");
 
+						title = document.createElement("h3");
+						title.classList.add("name");
+						title.textContent = hotel.name;
+
+						item.appendChild(title);
 						section.appendChild(item);
 					});
-
-					HP.model.experiences.forEach(function(experience, i){
-						var item;
-
-						item = document.createElement("div");
-						item.classList.add("item");
-						item.style.backgroundImage = [
-							"url(",
-							experience.image,
-							")"
-						].join("");
-
-						section.appendChild(item);
-					});
-
 
 					return section;
 				}());
@@ -417,7 +411,7 @@ HP = (function(){
 					section.appendChild(title);
 
 					HP.model.experiences.forEach(function(experience, i){
-						var item;
+						var item, title;
 
 						item = document.createElement("div");
 						item.classList.add("item");
@@ -427,6 +421,11 @@ HP = (function(){
 							")"
 						].join("");
 
+						title = document.createElement("h3");
+						title.classList.add("name");
+						title.textContent = experience.name;
+
+						item.appendChild(title);
 						section.appendChild(item);
 					});
 
@@ -1000,7 +999,7 @@ HP = (function(){
 		
 		window.addEventListener("load", render);
 		window.addEventListener("load", function(){
-			HP.page("explore", "");
+			HP.page("showcase", "");
 		});
 			
 		return function(name, query){
