@@ -19,9 +19,8 @@ $sql = <<<SQL
 	select
 		id, name,
         address, phone, website, latitude, longitude,
-        (select name from cities where id= city_id) as city,
-        (select name from countries where id= country_id) as country,
-        (select name from regions where id= region_id) as region,
+        (select name from cities where id= city_id) || ", " ||
+        (select name from countries where id= country_id) as city,
         (select filename from images where id = (select image_id from hotel_images where hotel_id = :id)) as images,
         "" as reviews
 	from hotels

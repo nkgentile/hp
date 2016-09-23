@@ -15,13 +15,14 @@ $sql = <<<SQL
         (select name from countries where id = hotel.country_id) as country,
         "hotel" as type
         from hotels as hotel
-        order by most_recent DESC
-        limit 10
+	order by random()
+        limit 5 
 	;
 SQL;
 $query = $db->prepare($sql);
 $query->execute();
 $hotels = $query->fetchAll(PDO::FETCH_ASSOC);
+shuffle($hotels);
 $query->closeCursor();
 
 echo json_encode($hotels, JSON_PRETTY_PRINT);

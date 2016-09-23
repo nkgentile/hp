@@ -106,8 +106,11 @@ HP = (function(){
 		"showcase": function(){
 			var showcase, render;
 			render = function(){
-				var showcase, hotels, slideshow,
-				lastScroll, currentScroll, deltaScroll;
+				var context, showcase, hotels, slideshow,
+				lastScroll, currentScroll, deltaScroll,
+				navigator, nodes;
+
+				context = new DocumentFragment();
 				
 				showcase = util.html("div", "showcase");
 				
@@ -142,9 +145,22 @@ HP = (function(){
 					},
 					"go": function go(i){
 						showcase.firstElementChild.style.marginLeft = ["-", i, "00%"].join("");
+					},
+					"timer":null,
+					"start":function start(){
+						slideshow.timer = window.setInterval(
+							slideshow.next,
+							5000
+						);
+					},
+					"stop":function stop(){
+						window.clearInterval(slideshow.timer);
 					}
+
 				};
+				slideshow.start();
 				
+				/*
 				showcase.addEventListener("wheel", function(e){
 					slideshow.scroll.current = new Date();
 					
@@ -157,17 +173,23 @@ HP = (function(){
 						slideshow.scroll.reset();
 					}
 				});
+				*/
+
+				navigator = document.createElement("div");
+				navigator.id = "navigator";
+
+				nodes = document.createElement("div");
+				nodes.id = "nodes";
 
 				hotels = HP.model;
 				hotels.forEach(function(h, i){
-					var hotel, info;
+					var hotel, info, thumb;
 					hotel = util.html("div", "hotel", "bg", "anim");
 					hotel.style.backgroundImage = [
 						"url(",
 						h.image,
 						")"
 					].join("");
-					showcase.appendChild(hotel);
 					hotel.addEventListener("click", function(e){
 						HP.page(
 							"hotel",
@@ -189,9 +211,41 @@ HP = (function(){
 
 						return info;
 					}());
+
+					thumb = document.createElement("div");
+					thumb.classList.add("thumb");
+					thumb.style.backgroundImage = [
+						"url(",
+						h.image,
+						")"
+					].join("");
+					thumb.addEventListener("mouseenter", function(){
+						navigator.classList.add("active");
+						this.classList.add("active");
+						slideshow.stop();
+						slideshow.go(i);
+					});
+					thumb.addEventListener("mouseleave", function(){
+						navigator.classList.remove("active");
+						this.classList.remove("active");
+						slideshow.start();
+					});
+					thumb.addEventListener("click", function(){
+						HP.page(
+							"hotel",
+							["id=",h.id].join("")
+						);
+					});
+
+					navigator.appendChild(thumb);
 					hotel.appendChild(info);
+					showcase.appendChild(hotel);
 				});
-				return showcase;
+
+				context.appendChild(showcase);
+				context.appendChild(nodes);
+				context.appendChild(navigator);
+				return context;
 			};
 			showcase = util.ajax("api/showcase.php", "", render, this);
 		},
@@ -364,9 +418,97 @@ HP = (function(){
 		"explore": function(){
 			var explore, render;
 			render = function(){
-				var explore, hotels, experiences;
+				var explore, map, info, hotels, experiences;
 
 				explore = new DocumentFragment();
+
+				info = (function(){
+					var info;
+					info = document.createElement("div");
+					return info;
+				});
+
+				map = (function map(){
+					var url, image, map, api, add;
+					
+					map = util.html("div", "map", "bg");
+									
+					api = util.html("script");
+					api.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAefEZ492qLVz9D0pNhb300hafvoxYKwaE";
+
+					add = function(){
+						var gmap, bounds;
+
+						gmap = new google.maps.Map(map, {
+							zoom: 6,
+							streetViewControl: false,
+							scrollwheel: false,
+							fullscreenControl: false,
+							mapTypeControl: false,
+							zoomControl: true,
+							zoomControlOptions:{
+								position: google.maps.ControlPosition.RIGHT_CENTER
+							}
+						});
+
+						bounds = new google.maps.LatLngBounds();
+						HP.model.reviews.forEach(function(review, i){
+							var marker, position, image;
+							position = new google.maps.LatLng(
+								review.hotel.latitude,
+								review.hotel.longitude
+							);
+
+							marker = new google.maps.OverlayView();
+							marker.addListener("click", function(){
+								gmap.panTo(position);
+								gmap.setZoom(6);
+								info.set(review);
+							});
+							marker.onAdd = function(){
+								image = document.createElement("div");
+								image.classList.add("marker");
+								/*
+								image.style.backgroundImage = [
+									"url(",
+									"assets/images/small/",
+									e.user.portrait,
+									")"
+								].join("");
+								*/
+								this.getPanes().overlayMouseTarget.appendChild(image);
+								google.maps.event.addDomListener(
+									image,
+									"click",
+									function(){
+										google.maps.event.trigger(marker, "click")
+									}
+								);
+							};
+							marker.draw = function(){
+								var overlayProjection, p;
+								overlayProjection = this.getProjection();
+								p = overlayProjection.fromLatLngToDivPixel(position);
+
+								image.style.left = (p.x - 7.5) + "px";
+								image.style.top = (p.y - 7.5) + "px";
+							};
+							marker.onRemove = function(){
+								image.parentNode.removeChild(image);
+								image = null;
+							};
+							marker.setMap(gmap);
+							bounds.extend(position);
+						});
+
+						gmap.fitBounds(bounds);
+					}
+	
+					api.addEventListener("load", add);
+					document.head.appendChild(api);
+
+					return map;
+				}());
 
 				hotels = (function(){
 					var section, title;
@@ -401,6 +543,9 @@ HP = (function(){
 						title.classList.add("name");
 						title.textContent = hotel.name;
 
+						item.addEventListener("click", function(){
+							HP.page("hotel", "id="+hotel.id);
+						});
 						item.appendChild(title);
 						section.appendChild(item);
 					});
@@ -441,6 +586,10 @@ HP = (function(){
 						title.classList.add("name");
 						title.textContent = experience.name;
 
+						item.addEventListener("click", function(){
+							HP.page("tag", "type=experience&id="+experience.id);
+						});
+
 						item.appendChild(title);
 						section.appendChild(item);
 					});
@@ -449,6 +598,7 @@ HP = (function(){
 					return section;
 				}());
 
+				explore.appendChild(map);
 				explore.appendChild(hotels);
 				explore.appendChild(experiences);
 				return explore;
@@ -478,7 +628,7 @@ HP = (function(){
 					name.textContent = HP.model.name;
 
 					city = util.html("h2", "city");
-					city.textContent = [HP.model.city, HP.model.country].join(", ");
+					city.textContent = HP.model.city;
 
 					/*
 					experiences = (function(){
@@ -681,7 +831,7 @@ HP = (function(){
 			};
 			hotel = util.ajax("api/hotel.php", query, render, this);
 		},
-		"tag1": function tag(query){
+		"tag": function tag(query){
 			var tag, render;
 			render = function(){
 				var tag = util.html("div");
@@ -817,6 +967,34 @@ HP = (function(){
 				return buffer;
 			};
 			destinations = util.ajax("api/destinations.php", query, render, this);
+		},
+		"become a hotel poet": function (query){
+			var join, render;
+			render = function(){
+				var buffer, marquee, form;
+				buffer = new DocumentFragment();
+
+				marquee = document.createElement("div");
+				marquee.classList.add("marquee");
+				marquee.style.backgroundImage = [
+					"url(",
+					"assets/images/large/",
+					"getaway.png",
+					")"
+				].join("");
+
+				form = (function(){
+					var form;
+					form = document.createElement("form");
+					return form;
+				}());
+				
+				buffer.appendChild(marquee);
+				buffer.appendChild(form);
+
+				return buffer;
+			};
+			join = util.ajax("api/join.php", null, render, this);
 		}
 	};
 	
@@ -858,9 +1036,6 @@ HP = (function(){
 					links = [
 						{
 							"name": "explore"
-						},
-						{
-							"name": "destinations"
 						},
 						{
 							"name": "become a hotel poet"
@@ -929,6 +1104,11 @@ HP = (function(){
 									name = document.createElement("h3");
 									name.classList.add("name");
 									name.textContent = result.name;
+
+									item.addEventListener("click", function(){
+										HP.page("hotel", "id="+result.id);
+										overlay.classList.add("hidden");
+									});
 
 									item.appendChild(name);
 									context.appendChild(item);

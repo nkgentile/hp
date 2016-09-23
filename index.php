@@ -12,6 +12,7 @@
 		@import "assets/css/hotel.css";
 		@import "assets/css/destinations.css";
 		@import "assets/css/search.css";
+		@import "assets/css/join.css";
 	</style>
 	<script src="assets/js/hp.js" type="text/javascript"></script>
 	<script id="gmaps"></script>
