@@ -1036,12 +1036,6 @@ HP = (function(){
 					links = [
 						{
 							"name": "explore"
-						},
-						{
-							"name": "become a hotel poet"
-						},
-						{
-							"name": "about"
 						}
 					];
 					add = function(el){
